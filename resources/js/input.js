@@ -81,30 +81,30 @@ function handleUsernamePrompt(input) {
     if (input) {
         if (currentCommand === 'newuser') {
             usernameForNewUser = input;
-            loadText("Password:");
+            loadText("EMTER PASSWORD:");
             isUsernamePrompt = false;
             isPasswordPrompt = true;
             $('#command-input').attr('type', 'password');
         } else if (currentCommand === 'login' || currentCommand === 'logon') {
             usernameForLogon = input;
-            loadText("Password:");
+            loadText("EMTER PASSWORD:");
             isUsernamePrompt = false;
             isPasswordPrompt = true;
             $('#command-input').attr('type', 'password');
         }
     } else {
-        loadText("Wrong username");
+        loadText("ERROR: WRONG USERNAME");
     }
 }
 
 function handleCommands(command, args) {
     if (['newuser', 'logon', 'login'].includes(command) && !sessionStorage.getItem('uplink')) {
-        loadText("Uplink required");
+        loadText("UPLINK REQUIRED");
         return;
     }
 
     if (['logon', 'login', 'newuser'].includes(command) && sessionStorage.getItem('auth') && !sessionStorage.getItem('host')) {
-        loadText("Logout required.");
+        loadText("LOGOUT REQUIRED");
         return;
     }
 
@@ -181,7 +181,7 @@ function handleExitCommands(command, args) {
 }
 
 function promptForUsername(command) {
-    loadText("login as:");
+    loadText("LOGON");
     isUsernamePrompt = true;
     currentCommand = command;
     $('#command-input').attr('type', 'text');
@@ -189,7 +189,7 @@ function promptForUsername(command) {
 
 function promptForPassword(command, username) {
     usernameForLogon = username;
-    loadText("Password:");
+    loadText("EMTER PASSWORD:");
     isUsernamePrompt = false;
     isPasswordPrompt = true;
     currentCommand = command;

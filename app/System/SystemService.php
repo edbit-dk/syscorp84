@@ -113,7 +113,7 @@ class SystemService
         There are {$users} local users. 
         There are {$hosts} nodes on the network.
 
-        More commands available after LOGIN. 
+        More commands available after LOGON. 
         Type HELP for a detailed command list.
         Type NEWUSER to create an account. 
         Type RESET to interrupt any command.

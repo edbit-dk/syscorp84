@@ -29,7 +29,7 @@ return [
         'is_guest' => 0
     ],
     [
-        'cmd' => 'login', 
+        'cmd' => 'logon', 
         'input' => '<username>', 
         'info' => 'login (alias: logon) ',
         'is_user' => 0,
@@ -83,7 +83,7 @@ return [
         'is_guest' => 1
     ],
     [
-        'cmd' => 'netstat', 
+        'cmd' => 'scan', 
         'input' => NULL, 
         'info' => 'list connected nodes (alias: scan)',
         'is_user' => 1,
@@ -92,7 +92,7 @@ return [
         'is_guest' => 0
     ],
     [
-        'cmd' => 'telnet', 
+        'cmd' => 'connect', 
         'input' => '<host>', 
         'info' => 'connect to host (alias: connect)',
         'is_user' => 1,
@@ -144,7 +144,7 @@ return [
     [
         'cmd' => 'debug', 
         'input' => '[dump]', 
-        'info' => 'run memory dump on /etc/passwd',
+        'info' => 'run memory dump on accounts.f',
         'is_user' => 1,
         'is_host' => 0,
         'is_visitor' => 0,

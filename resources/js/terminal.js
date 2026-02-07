@@ -53,9 +53,14 @@ function loadText(text) {
 
 // Function to scroll the terminal window to the bottom
 function scrollToBottom() {
-    const terminal = document.getElementById('terminal-wrapper');
-    terminal.scrollTop = terminal.scrollHeight;
-    $('#terminal-wrapper').scrollTop($('#terminal-wrapper')[0].scrollHeight);
+    const wrapper = document.getElementById('terminal-wrapper');
+    if (wrapper) {
+        // Vi scroller wrapperen til dens maksimale højde
+        wrapper.scrollTo({
+            top: wrapper.scrollHeight,
+            behavior: 'smooth' // Gør det lækkert og flydende som i spillene
+        });
+    }
 }
 
 // Function to clear terminal
@@ -76,7 +81,7 @@ function setTheme(color) {
     const colors = {
         green: "#0f0",
         white: "#EAF7F9",
-        yellow: "#DBC853",
+        yellow: "#ffb642",
         blue: "#0CD7CF",
     };
 

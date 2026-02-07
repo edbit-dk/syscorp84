@@ -112,6 +112,7 @@ class HostController extends AppController
             $ip = Host::data()->ip;
 
             echo <<< EOT
+
             Trying $ip...
             Connected to $host\n
             EOT;
@@ -160,7 +161,9 @@ class HostController extends AppController
             $hostname = $host->hostname;
             
             echo <<<EOT
-            $access $hostname: $host->org - $host->location\n
+
+            $access $hostname: $host->org - $host->location
+            
             EOT;
         }
         
@@ -241,7 +244,7 @@ class HostController extends AppController
     public function logoff() 
     {
         Host::logoff();
-        echo "Connection closed by foreign host";
+        echo "\nConnection closed by foreign host\n";
     }
 
 }

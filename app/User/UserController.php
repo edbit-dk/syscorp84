@@ -27,12 +27,12 @@ class UserController extends AppController
             if(Auth::login($input['username'], $input['password'])) {
                 Host::attempt(0, Auth::id());
                 sleep(1);
-                echo 'Login accepted';
+                echo 'WELCOME';
                 exit;  
 
             } else {
                 echo <<< EOT
-                Login incorrect
+                ERROR: WRONG PASSWORD
                 EOT;
                 exit;
             }    
@@ -60,7 +60,7 @@ class UserController extends AppController
                 'password' => $this->data
             ]);
     
-            echo 'Password changed';
+            echo 'PASSWORD CHANGED';
         }
     }
 
@@ -78,7 +78,7 @@ class UserController extends AppController
             $password = $input['password'];
 
             if (User::where('username', '=', $username)->exists()) {
-                echo 'Username not available';
+                echo 'USERNAME NOT AVAILABLE';
                 exit;
              }
 

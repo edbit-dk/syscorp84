@@ -31,106 +31,105 @@ class Dump
         self::$correct = $words;
     }
 
-    public static function memory($rows = 16, $cols = 8) 
-    {
+    public static function memory($rows = 16, $cols = 12, $header = "") 
+{
         if(empty(self::$words)) {
+            // Default word list
             self::$words = ["HACK", "PASSWORD", "SECURITY", "VAULT", "ACCESS", "DENIED", "TERMINAL", "ADMIN", "PASS"];
         }
         
-        // Setup
         $words = array_merge(self::$words, self::$correct);
         $randomize = self::$reset;
-
-        $hexBase = 0x4000; // Base address for memory dump
-        $output = "";
+        $hexBase = 0xF964; 
         
-        // Convert words to uppercase for consistency
-        $totalCells = $rows * $cols * 2; // Each hex cell is two characters
-        
-        // If randomize is true, shuffle special words
-        if ($randomize && Session::has(self::$dump) && Session::has(self::$input)) {
+        if ($randomize && Session::has(self::$dump)) {
             Session::remove(self::$input);
             Session::remove(self::$dump);
         }
         
-        // Check if memory dump already exists in session
+        $totalChars = $rows * $cols * 2;
+
         if (!Session::has(self::$dump)) {
-            $hexData = [];
-
-            // Define allowed symbols (no letters or numbers)
-            $allowedSymbols = array_merge(range(33, 47), range(58, 64), range(91, 96), range(123, 126));
-
-            // Fill hexData with random symbols only
-            for ($i = 0; $i < $totalCells; $i++) {
-                $randByte = $allowedSymbols[array_rand($allowedSymbols)]; // Pick a random symbol
-                $hexData[$i] = sprintf("%02X", $randByte); // Convert to hex
+            $symbols = ['<', '>', '[', ']', '{', '}', '(', ')', '/', '\\', '|', '?', '!', '@', '#', '$', '%', '^', '&', '*', '-', '_', '+', '=', '.', ',', ':', ';'];
+            $data = [];
+            for ($i = 0; $i < $totalChars; $i++) {
+                $data[$i] = $symbols[array_rand($symbols)];
             }
 
-            // Insert special words at predefined locations
             $usedPositions = [];
             foreach ($words as $word) {
-                $wordHex = bin2hex($word);
-                $wordLength = strlen($wordHex) / 2;
-
-                // Find a non-overlapping position
+                $wordLen = strlen($word);
+                
                 do {
-                    $position = rand(0, $totalCells - $wordLength);
-                } while (array_intersect(range($position, $position + $wordLength - 1), $usedPositions));
+                    $pos = rand(0, $totalChars - $wordLen);
+                    
+                    // Ensure word stays on one line to make copying easier
+                    $startRow = floor($pos / $cols);
+                    $endRow = floor(($pos + $wordLen - 1) / $cols);
+                    
+                    $collision = ($startRow !== $endRow); 
+                    if (!$collision) {
+                        for ($j = $pos; $j < $pos + $wordLen; $j++) {
+                            if (isset($usedPositions[$j])) {
+                                $collision = true;
+                                break;
+                            }
+                        }
+                    }
+                } while ($collision);
 
-                // Mark this position as used
-                $usedPositions = array_merge($usedPositions, range($position, $position + $wordLength - 1));
-
-                // Insert the word into the hexData
-                for ($i = 0; $i < strlen($wordHex); $i += 2) {
-                    $hexData[$position + ($i / 2)] = substr($wordHex, $i, 2);
+                for ($j = 0; $j < $wordLen; $j++) {
+                    $data[$pos + $j] = $word[$j];
+                    $usedPositions[$pos + $j] = true;
                 }
             }
-
-            // Store the generated memory dump in session
-            Session::set(self::$dump, $hexData);
+            Session::set(self::$dump, $data);
         } else {
-            // Load existing memory dump (ensuring it stays unchanged)
-            $hexData = Session::get(self::$dump);
+            $data = Session::get(self::$dump);
         }
 
-        // Track incorrect guesses in session
+        // --- INCORRECT GUESS LOGIC ---
         if (!Session::has(self::$input)) {
             Session::set(self::$input, []);
         }
+        
+        $wrongGuesses = Session::get(self::$input);
+        
+        $dataString = implode('', $data);
+        foreach ($wrongGuesses as $wrongWord) {
+            $replacement = str_repeat('.', strlen($wrongWord));
+            $dataString = str_ireplace($wrongWord, $replacement, $dataString);
+        }
+        
+        $displayData = str_split($dataString);
 
-        // Generate memory dump output
-        $output = '';
+        // --- OUTPUT GENERATION ---
+        // Start with the externally provided header
+        $output = $header;
+
         for ($i = 0; $i < $rows; $i++) {
-            $address = sprintf("%04X", $hexBase + ($i * $cols * 2));
-            $hexRow = array_slice($hexData, $i * $cols * 2, $cols * 2);
+            $addrL = sprintf("0x%04X", $hexBase + ($i * $cols));
+            $addrR = sprintf("0x%04X", $hexBase + (($rows + $i) * $cols));
 
-            // Convert hex to ASCII
-            $asciiRow = '';
-            for ($j = 0; $j < count($hexRow); $j++) {
-                $byte = hexdec($hexRow[$j]);
-                $char = ($byte >= 32 && $byte <= 126) ? chr($byte) : '.';
-                $asciiRow .= $char;
-            }
+            $charsLeft = implode('', array_slice($displayData, $i * $cols, $cols));
+            $charsRight = implode('', array_slice($displayData, ($rows + $i) * $cols, $cols));
 
-            // Hide incorrect guesses in ASCII
-            foreach (Session::get(self::$input) as $wrongWord) {
-                if (strpos($asciiRow, $wrongWord) !== false) {
-                    $asciiRow = preg_replace('/\b' . preg_quote($wrongWord, '/') . '\b/', str_repeat('.', strlen($wrongWord)), $asciiRow);
-                }
-            }
-
-            // Format the output
-            $output .= "$address  " . implode(" ", str_split(implode("", $hexRow), 2)) . "  |$asciiRow|\n";
+            $output .= "$addrL $charsLeft  $addrR $charsRight\n";
         }
         
         echo $output;
+    }
+
+    public static function data()
+    {
+        return Session::get(self::$input);
     }
 
     public static function input($word) 
     {
         $correct = self::$correct;
 
-        $input = $word;
+        $input = strtolower($word);
         
         if (in_array($input, $correct)) {
             return true;

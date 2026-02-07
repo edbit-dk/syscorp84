@@ -220,13 +220,13 @@ function handleUsernamePrompt(input) {
     if (input) {
         if (currentCommand === 'newuser') {
             usernameForNewUser = input;
-            loadText("Password:");
+            loadText("EMTER PASSWORD NOW");
             isUsernamePrompt = false;
             isPasswordPrompt = true;
             $('#command-input').attr('type', 'password');
         } else if (currentCommand === 'login' || currentCommand === 'logon') {
             usernameForLogon = input;
-            loadText("Password:");
+            loadText("EMTER PASSWORD NOW");
             isUsernamePrompt = false;
             isPasswordPrompt = true;
             $('#command-input').attr('type', 'password');
@@ -238,12 +238,12 @@ function handleUsernamePrompt(input) {
 
 function handleCommands(command, args) {
     if (['newuser', 'logon', 'login'].includes(command) && !sessionStorage.getItem('uplink')) {
-        loadText("Uplink required");
+        loadText("UPLINK REQUIRED");
         return;
     }
 
     if (['logon', 'login', 'newuser'].includes(command) && sessionStorage.getItem('auth') && !sessionStorage.getItem('host')) {
-        loadText("Logout required.");
+        loadText("LOGOUT REQUIRED");
         return;
     }
 
@@ -320,7 +320,7 @@ function handleExitCommands(command, args) {
 }
 
 function promptForUsername(command) {
-    loadText("login as:");
+    loadText("LOGON");
     isUsernamePrompt = true;
     currentCommand = command;
     $('#command-input').attr('type', 'text');
@@ -328,7 +328,7 @@ function promptForUsername(command) {
 
 function promptForPassword(command, username) {
     usernameForLogon = username;
-    loadText("Password:");
+    loadText("ENTER PASSWORD NOW");
     isUsernamePrompt = false;
     isPasswordPrompt = true;
     currentCommand = command;
@@ -575,9 +575,14 @@ function loadText(text) {
 
 // Function to scroll the terminal window to the bottom
 function scrollToBottom() {
-    const terminal = document.getElementById('terminal-wrapper');
-    terminal.scrollTop = terminal.scrollHeight;
-    $('#terminal-wrapper').scrollTop($('#terminal-wrapper')[0].scrollHeight);
+    const wrapper = document.getElementById('terminal-wrapper');
+    if (wrapper) {
+        // Vi scroller wrapperen til dens maksimale højde
+        wrapper.scrollTo({
+            top: wrapper.scrollHeight,
+            behavior: 'smooth' // Gør det lækkert og flydende som i spillene
+        });
+    }
 }
 
 // Function to clear terminal
@@ -598,7 +603,7 @@ function setTheme(color) {
     const colors = {
         green: "#0f0",
         white: "#EAF7F9",
-        yellow: "#DBC853",
+        yellow: "#ffb642",
         blue: "#0CD7CF",
     };
 

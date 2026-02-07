@@ -23,16 +23,21 @@ class DebugController extends AppController
         
         Dump::words(wordlist(strlen( $host_password), Host::level(), 'password_list.txt'));
         Dump::correct([$host_admin,  $host_password]);
+    
 
         if($input = $this->data) {
-            if($input == 'reset') {
+            $attemptsLeft = 4 - count(Dump::data());
+            $header = "ROBCOM INDUSTRIES (TM) TERMLINK PROTOCOL\nENTER PASSWORD NOW";
+            $header .= "ATTEMPT(S) LEFT: $attemptsLeft\n\n";
+        
+        if($input == 'reset') {
                 Dump::reset();
-                return Dump::memory();
+                return Dump::memory(16, 12, $header);
             }
             Dump::input($input);
         }
 
-        Dump::memory();
+        Dump::memory(16, 12, $header);
     }
 
 }
