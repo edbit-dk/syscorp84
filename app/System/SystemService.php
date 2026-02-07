@@ -17,6 +17,7 @@ class SystemService
 
     public static function boot()
     {
+        echo bootup(10);
         echo text('os_boot.txt');
     }
 
@@ -48,6 +49,8 @@ class SystemService
 
             echo <<< EOT
             Security Access Code Sequence Accepted.
+
+            Welcome to PrometoNet
 
             Connecting...
             Authenticating $remote_ip...
@@ -83,26 +86,11 @@ class SystemService
         Session::set($code, $access_code);
 
         echo <<< EOT
-        [uplink v1.0.3|SRI Comm Tools|Build 8401]
-
-        > Initializing uplink module...
-        > Reading config: /etc/uplink.conf
-        > Resolving host... [sri-nic.arpa] → 10.0.0.51
-        > Performing handshake... OK
-        > Remote link established at 9600 baud... OK
-        > Establishing encrypted session... OK
-        > Uplink with central mainframe accepted!
-
-        **********************************************************
-        WARNING: Accessing this system without authorization 
-        violates DoD Directive 5200.27. Connection logs may be 
-        reviewed by system administrators. Proceed with caution!
-
+        Uplink with central PrometoNet initiated.
         Enter Security Access Code Sequence:
         
         {$access_code}
 
-        **********************************************************
         EOT;
     }
 
@@ -116,20 +104,19 @@ class SystemService
         $hosts = Host::count();
 
         echo <<< EOT
-        Connected to sri-nic.arpa port {$port}
-
-        **********************************************************
-        *   UNAUTHORIZED ACCESS TO THIS SYSTEM IS PROHIBITED     *
-        *        ALL ACTIVITY IS MONITORED AND LOGGED            *
-        **********************************************************
+        WELCOME TO ROBCOM INDUSTRIES (TM) TERMLINK
         
-        Welcome to Stanford Research Institute - Network Information Center
-        
-        Local time is {$date} in Menlo Park, California, USA.
-        There are {$users} local users. There are {$hosts} hosts on the network.
+        Connected to PrometoNet port {$port}
+         
+        Local time is {$date}. 
+        Last update to network was on April 4th, 1984.
+        There are {$users} local users. 
+        There are {$hosts} nodes on the network.
 
-        More commands available after LOGIN. Type HELP for a detailed command list.
-        Type NEWUSER to create an account. Type RESET to interrupt any command.
+        More commands available after LOGIN. 
+        Type HELP for a detailed command list.
+        Type NEWUSER to create an account. 
+        Type RESET to interrupt any command.
         EOT;
     }
 
@@ -137,8 +124,16 @@ class SystemService
     {
         $username = strtoupper(User::username());
         $last_login = User::data()->last_login;
+        $server_id = Host::id();
 
-        echo "Logged in as user $username. Last login was $last_login.";
+        echo <<< EOT
+        ROBCOM INDUSTRIES VIRTUAL OPERATING SYSTEM
+        COPYRIGHT 1975-1977 ROBCOM INDUSTRIES
+
+        Logged in as user $username. 
+        Last login was $last_login.
+        __________________________________________
+        EOT;
     }
 
     public static function user()
@@ -149,6 +144,7 @@ class SystemService
         $last_ip = User::data()->ip;
 
         $host = Hosts::where('id', 1)->first();
+        $id = $host->id;
         $os = $host->os;
         $org = $host->org;
         $location = $host->location;
@@ -165,10 +161,15 @@ class SystemService
         $current_date = datetime($host->created_at, config('unix_timestamp'));
 
         echo <<< EOT
+        ROBCOM INDUSTRIES VIRTUAL OPERATING SYSTEM
+        COPYRIGHT 1975-1977 ROBCOM INDUSTRIES
+        -Server $id-
+
         Last login: {$last_login} from $last_ip
         ($os): $current_date
 
-        $system_info 
+        $system_info
+        ___________________________________________ 
         EOT;
     }
 
@@ -192,6 +193,7 @@ class SystemService
         $host = Host::data();
         $last_ip = User::data()->ip;
         $os = $host->os;
+        $id = $host->id;
         $location = $host->location;
         $motd = $host->motd;
         $notes =  $host->notes;
@@ -223,10 +225,15 @@ class SystemService
         Host::root();
 
         echo <<< EOT
+        ROBCOM INDUSTRIES VIRTUAL OPERATING SYSTEM
+        COPYRIGHT 1975-1977 ROBCOM INDUSTRIES
+        -Server $id-
+
         Last login: {$last_login} from $last_ip
         ($os): $current_date
         
-        $system_info 
+        $system_info
+        ___________________________________________ 
         EOT;
     }
 

@@ -30,7 +30,7 @@ return [
     'db' => [
         'driver' => 'mysql',
         'host' => '127.0.0.1',
-        'database' => 'arpanet',
+        'database' => 'syscorp84',
         'username' => 'root',
         'password' => 'mysql',
         'charset' => 'utf8',

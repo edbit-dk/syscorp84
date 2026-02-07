@@ -1,14 +1,21 @@
-# HackLab
+# SysCorp84
 
-HackLab is a retro web-simulation of a stylized ARPANET/USENET, circa 1985-1990, a transcontinental network operated by the US Military, stretching 
-from US to UK and Norway by sattelite. 
+SysCorp84 is a retro web-simulation of a stylized ARPANET/MILNET, circa 1984, a transcontinental network operated by the US Military.
 
-It is a full multi-user simulation, including simulated hosts from the early net, many 
-of files from the era and more. The simulation takes inspiration from 
-the "TeleHack" and "Hacknet" game and other terminal-focused games. 
+It is a full multi-user simulation, including simulated hosts. The simulation takes inspiration from "Fallout", "TeleHack" , "Hacknet" and other terminal-focused games. 
 
-The main focus of the project is to educate about internet 
-history and technology.
+The main focus of the project is to educate about internet and terminal history and technology.
+
+# Fallout inspiration 
+- UOS = VOS (VIRTUAL OPERATING SYSTEM)
+- The Enclave = The Syndicate
+- Vault-Tec = Vault Systems Corporation 
+- RobCo = RobCom Industries
+- Poseidon Energy = Prometheus Energy / PrometoNet
+- West-Tek = Defense Systems Corporation 
+- General Atomics = General Systems International
+- Repconn = Space Systems Corporation 
+- Nuka-Cola / Cola Company Corporation
 
 # Roadmap
 - [X] Boot sequence

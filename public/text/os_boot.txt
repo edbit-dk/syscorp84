@@ -1,39 +1,25 @@
->>> BOOT DUA0
 
-loading vmunix...
-: hp(0,0)vmunix
-123456+789012+345678 start 0xF00
-mem = 204800
 
-Berkeley UNIX 4.2 BSD Unix #1: Mon Aug 1 11:45:32 PDT 1983
-    root@vax:/usr/src/sys/vmunix
+***** VOS (R) V4.2.0 *****
 
-real mem  = 2097152
-avail mem = 1863680
-using 256 buffers containing 131072 bytes of memory
-UNIBUS Adapter 0 at 772440
-uba0: Q22
-dz0 at uba0 csr 160100 vec 300, ipl 15
-dmf0 at uba0 csr 174400 vec 200, ipl 15
-mt0 at uba0 csr 172520 vec 774, ipl 15
-ht0 at uba0 csr 172440 vec 224, ipl 15
-ra0 at uba0 csr 172150 vec 270, ipl 15
-ra0: RA81
-root on ra0
+COPYRIGHT 1975 ROBCOM(R)
+LOADER V1.1
+EXEC VERSION 75.84
+64K RAM SYSTEM
+38911 BYTES FREE
+NO DISK FOUND
+LOAD ROM(1): VOS 420
 
-Automatic reboot in progress...
-Berkeley 4.2 UNIX (console)
-Mon Aug 1 11:45:32 PDT 1983
+Initializing RobCom Industries(TM) 
+MF Boot System Driver v.4.2.0
+ROBCOM BIOS
+R-BIOS-4.02.19.84 52EE5.E7.E8
+Copyright 1975-1984 RobCom Ind.
+Uppermem: 64 KB
 
-Checking file systems...
-/dev/ra0a: 154 files, 722 blocks, 456 free
-/dev/ra0g: 1324 files, 8123 blocks, 7034 free
+> Initializing boot..
+> Loading RobCom Virtual OS...
+> 64K RAM detected...
+> Launching Interface...
 
-Mounting root filesystem...
-Starting init: /etc/init
-Initializing network interfaces: de0
-Starting system daemons: update cron syslogd inetd
-
-Starting uplink service: /usr/bin/uplink.bin
-Starting automated uplink...
-
+=================================

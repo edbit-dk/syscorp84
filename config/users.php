@@ -3,7 +3,7 @@
 return [
     [
         'username' => 'su', 
-        'email' => 'su@hacklab', 
+        'email' => 'su@syscorp84', 
         'password' => random_pass(),
         'code' => access_code(),
         'fullname' => 'Super User',

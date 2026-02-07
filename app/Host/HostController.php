@@ -44,7 +44,7 @@ class HostController extends AppController
 
         if(Host::guest()) {
             $hostname = Host::hostname(); 
-            echo "[@$hostname]$";
+            echo "[@$hostname]>";
             exit;
         }
         
@@ -55,7 +55,7 @@ class HostController extends AppController
             if(Host::data()->user_id == User::id()) {
                 echo "[$username@$hostname$pwd]#";
             } else {  
-                echo "[$username@$hostname$pwd]$";
+                echo "[$username@$hostname$pwd]>";
             }
             
             exit;
@@ -63,14 +63,14 @@ class HostController extends AppController
 
         if(User::auth()) {
             $hostname = User::username();
-            echo "[@$hostname]$";
+            echo "[@$hostname]>";
             exit;
         }
 
         if(User::uplinked()){
-            echo '$'; 
+            echo '>'; 
         }else {
-             echo '>';
+             echo '.';
         }
 
     }
