@@ -8,14 +8,15 @@ The main focus of the project is to educate about internet and terminal history 
 
 # Fallout inspiration 
 - UOS = VOS (VIRTUAL OPERATING SYSTEM)
-- The Enclave = The Syndicate (S)
-- Vault-Tec = Vault Security Systems Corp (VSC)
-- RobCo = Robot & Computer Systems Corp (RobCom Industries)
-- Poseidon Energy = Prometheus Energy Corp (P-Corp) / PrometoNet
-- West-Tek = Defense Systems Corp (DSC)
-- General Atomics = General Systems Corp (GSC)
-- Repconn = Space Systems Corp (SSC)
-- Nuka-Cola / Cola Company Corp
+- The Enclave = Systems Corporation (SysCorp Syndicate - SS)
+- IBM = International Data Machines (IDM Corp)
+- Vault-Tec = Vault Security Corp (Vault-Sec)
+- RobCo = Robot & Computer Industries (RobCom Industries)
+- General Atomics + Poseidon Energy = Global Energy Company (GEC Corp)
+- PoseidoNET = DEFCOM-NET
+- West-Tek = Defense & Communication Industries (DEF-COM Industries)
+- Repconn =  Space Helix Industries (SpaceH Industries) 
+- The Calculator = The Colossus
 
 # Roadmap
 - [X] Boot sequence

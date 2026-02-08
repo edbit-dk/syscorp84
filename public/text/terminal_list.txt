@@ -1,0 +1,27 @@
+host            organization                          location
+----            ------------                          --------
+poseidon-oil    The Enclave                           Control Station Enclave
+kovac-mul       The Enclave                           Kovac-Muldoon Satellite
+navarro-base    The Enclave                           Navarro, CA
+gecko-cntrl     Poseidon Energy                       Gecko Power Plant, CA
+helios-one      Poseidon Energy                       HELIOS One, NV
+pos-energy-hq   Poseidon Energy                       Poseidon Energy HQ, NV
+eden-net        The Enclave                           Raven Rock, MD
+zax12           West Tek / US Army                    The Glow, CA
+modus           The Enclave                           Whitespring Bunker, WV
+adams-afb       The Enclave                           Adams Air Force Base, MD
+iron-mtn        US Government / Enclave               Iron Mountain, CA
+v-tec-hq        Vault-Tec Central Processor           Washington D.C.
+v-tec-reg       Vault-Tec Regional HQ                 Arlington, VA
+vault0          Vault-Tec                             Cheyenne Mountain, CO
+v13-ovr         Vault-Tec                             Vault 13, CA
+v15-cntrl       Vault-Tec                             Vault 15, CA
+v12-ovr         Vault-Tec                             Vault 12, CA
+v87-ovr         Vault-Tec                             Vault 87, DC
+v101-ovr        Vault-Tec                             Vault 101, DC
+house           RobCo Industries                      Lucky 38, New Vegas
+inst-logic      The Institute                         CIT Campus, MA
+zax12           West Tek                              The Glow, CA
+v81-ovr         Vault-Tec (Lokal drift)               Vault 81, MA
+v111-clear      Vault-Tec (Lokal drift)               Vault 111, MA
+v122-ovr        Vault-Tec                             Enclave Research, CA
