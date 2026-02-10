@@ -23,7 +23,8 @@ The main focus of the project is to educate about internet and terminal history 
 # Roadmap
 - [X] Boot sequence
 - [x] Uplink validation
-- [x] Login/sinup
+- [x] Login/register
+- [ ] Real world inspired hosts
 - [x] Host list/scan/connect
 - [ ] Hacking tools
 - [x] Email system
