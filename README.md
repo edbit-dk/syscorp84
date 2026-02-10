@@ -10,9 +10,9 @@ The main focus of the project is to educate about internet and terminal history 
 - UOS = V/OS (Virtual Operating System)
 - ZAX = VAX/OS (Virtual Advanced eXecution Operating System)
 - Maineframe = MV/OS (Mainframe Virtual Operating System)
-- The Enclave = The Syndicate 
+- The Enclave = The SysCorp Syndicate (SCS) 
 - IBM = International Data Machines (IDM Corp)
-- Vault-Tec = Control & Security Corp (Con-Sec Corp)
+- Vault-Tec = Control & Security Systems (Con-Sec Corp - CSC)
 - RobCo = Robot & Computer Industries (RobCom Industries)
 - General Atomics + Poseidon Energy = General Energy Company (GEC Corp)
 - PoseidoNET = DEFCOM-NET
