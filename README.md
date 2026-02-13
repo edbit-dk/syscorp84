@@ -1,6 +1,6 @@
-# DEFCOMNET
+# FALLHACK
 
-DEFCOMNET is a retro web-simulation of a stylized ARPANET/MILNET, circa 1984, a transcontinental network operated by the US Military.
+FALLHACK is a retro web-simulation of a stylized ARPANET/MILNET, circa 1984, a transcontinental network operated by the US Military.
 
 It is a full multi-user simulation, including simulated hosts. The simulation takes inspiration from "Fallout", "TeleHack" , "Hacknet" and other terminal-focused games. 
 
