@@ -14,11 +14,18 @@ The main focus of the project is to educate about internet and terminal history 
 - IBM = International Data Machines (IDM Corp)
 - Vault-Tec = Control & Security Systems (Con-Sec Corp - CSC)
 - RobCo = Robot & Computer Industries (RobCom Industries)
-- General Atomics + Poseidon Energy = General Energy Company (GEC Corp)
-- PoseidoNET = DEFCOM-NET
-- West-Tek = Defense & Communications Industries (DEFCOM Industries)
-- Repconn =  Space Helix Industries (SpaceH Industries) 
+- General Atomics + Poseidon Energy = General Energy Company Group (GEC Corp)
+- PoseidoNET = DEFCOM-NET, GEC-NET, NEURAL-NET, SYSCORP-NET
+- West-Tek = Defense & Communications Solutions (DEF-COM)
+- Repconn =  Space HeliX Ventures (SpaceH) 
 - The Calculator = The Colossus
+
+# World Structure 
+SCS (SYSCORP-NET)
+- AI (VAX/OS, cAI, NEURAL-NET)
+- CON-SEC (cAI, VAX/OS, CONSEC-NET)
+- DEF-COM (VAX/OS, DEFCOM-NET)
+- GEC (IDM, SPACEH, (M)V/OS, ROBCOM, GEC-NET,)
 
 # Roadmap
 - [X] Boot sequence
