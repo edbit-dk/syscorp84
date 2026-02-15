@@ -12,14 +12,14 @@ The main focus of the project is to educate about internet and terminal history 
 - Maineframe = MV/OS (Mainframe Virtual Operating System)
 - The Enclave = The SysCorp Syndicate (SCS) 
 - IBM = International Data Machines Corp. (IDM)
-- Vault-Tec = Corporate Security Systems Corp. (CSC)
-- RobCo = Robot & Computer Industries (RCI)
+- Vault-Tec = Corporate Security Systems Corp. (COP-SEC / CSC)
+- RobCo = Robot & Computer Industries (RobCom Ind. / RCI)
 - General Atomics + Poseidon Energy = General Energy Company Corp. (GEC)
 - PoseidoNET = DEFCOM-NET, GEC-NET, NEURAL-NET, SYSCORP-NET
-- West-Tek = Defense & Communications Industries (DFC)
-- Repconn =  Space HeliX Ventures (SpaceH) 
+- West-Tek = Defense & Communications Industries (DEF-COM / DFC)
+- Repconn =  Space HeliX Industries (SpaceH Ind.) 
 - The Calculator = The Colossus
-- The Institute = Computation & Automation Industries (CAI)
+- The Institute = Computation & Advanced Intelligence (CAI)
 
 # World Structure 
 SCS (SYSCORP-NET)
