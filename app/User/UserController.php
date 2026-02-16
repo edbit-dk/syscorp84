@@ -27,12 +27,12 @@ class UserController extends AppController
             if(Auth::login($input['username'], $input['password'])) {
                 Host::attempt(0, Auth::id());
                 sleep(1);
-                echo 'SUCCESS: AUTHENTICATION COMPLETE';
+                echo 'SUCCESS: LOGON ACCEPTED';
                 exit;  
 
             } else {
                 echo <<< EOT
-                ERROR: INVALID CREDENTIALS
+                ERROR: WRONG USERNAME OR PASSWORD
                 EOT;
                 exit;
             }    

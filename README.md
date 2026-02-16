@@ -24,7 +24,7 @@ The main focus of the project is to educate about internet and terminal history 
 # World Structure 
 SCS (SYSCORP-NET)
 - CAI (VAX/OS, Colossus, NEURAL-NET)
-- CSC (CAI, VAX/OS, CONSEC-NET)
+- CSC (CAI, VAX/OS, COPSEC-NET)
 - DFC (VAX/OS, DEFCOM-NET)
 - GEC (IDM, SpaceH, (M)V/OS, RobCom, GEC-NET)
 

@@ -482,15 +482,15 @@ function ipToNum(string $ip): string {
 
 function bootup($loops = 70, $keyphrases = []) {
     if(empty($keyphrases)) {
-        $keyphrases = [' start memory discovery', ' CPUO starting cell relocation', 
-        ' CPUO launch EFIO', ' CPUO starting EFIO'];
+        $keyphrases = [" START MEMORY DISCOVERY \n", " CPUO STARTING CELL RELOCATION \n", 
+        " CPUO LAUNCH EFIO \n", " CPUO STARTING EFIO \n"];
     }
 
-    $middle_pieces = [' 1', ' 0', ' 0x0000A4', ' 0x00000000000000000', 
-                      ' 0x000014', ' 0x000009', ' 0x000000000000E003D'];
+    $middle_pieces = [" 1", " 0", " 0x0000A4 \n", " 0x00000000000000000 \n", 
+                      " 0x000014 \n", " 0x000009 \n", " 0x000000000000E003D \n"];
     
     // Start the huge string with '*'
-    $huge_string = '*';
+    $huge_string = " * \n";
 
     // Loop 70 times, similar to the Python code
     for ($i = 0; $i < $loops; $i++) {

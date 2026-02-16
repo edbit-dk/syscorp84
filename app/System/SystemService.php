@@ -48,6 +48,8 @@ class SystemService
             $remote_ip = remote_ip();
 
             echo <<< EOT
+            UPLINK WITH CENTRAL NETWORK INITIATED... 
+
             SUCCESS: SECURITY ACCESS CODE SEQUENCE ACCEPTED
 
             AUTHORIZING $remote_ip...
@@ -67,6 +69,8 @@ class SystemService
 
             } else {
                 echo <<< EOT
+                UPLINK WITH CENTRAL NETWORK INITIATED... 
+
                 ERROR: ACCESS DENIED
                 EOT;
             }
@@ -78,35 +82,12 @@ class SystemService
     {
         $code = 'code';
         $access_code = access_code();
-        $port = $_SERVER['SERVER_PORT'];
-        $date = strtoupper(date('F jS, Y',));
-        $users = User::count();
-        $hosts = Host::count();
 
         Session::set($code, $access_code);
 
         echo <<< EOT
-        > UPLINK WITH CENTRAL DEFCOM-NET INITIATED... 
-
-        CONNECTED TO DEFCOM-NET PORT {$port}
-
-        DEFENSE & COMMUNICATIONS NETWORK
-        COPYRIGHT 1969-1984 DEFCOM INDUSTRIES
-        _____________________________________________________
-        
-        [ SYSTEM DIAGNOSTIC -> STATUS OK ]
-        -----------------------------------------------------
-        > HOST ID: NODE-01 [VAX/OS V1.4]
-        > LOCAL TIME: {$date}
-        > LAST UPDATE: APRIL 4TH, 1984.
-        -----------------------------------------------------
-        
-        [ COMLINK CONNECTION -> STATUS OK ]
-        -----------------------------------------------------
-        > TOTAL NODES: {$hosts} ACTIVE
-        > TOTAL ACCOUNTS: {$users} ACTIVE
-        > UPLINK ACCESS: GUEST MODE
-        -----------------------------------------------------
+        THIS TERMINAL ALLOWS ACCESS TO CENTRAL NETWORK
+        ______________________________________________
 
         ENTER SECURITY ACCESS CODE SEQUENCE: 
         
@@ -118,10 +99,14 @@ class SystemService
     {
         sleep(1);
 
-        echo <<< EOT
-        ERROR: UNAUTHORIZED ACCESS DETECTED.
+        $port = $_SERVER['SERVER_PORT'];
+        $date = strtoupper(date('F jS, Y',));
 
-        LOGON:
+        echo <<< EOT
+        WELCOME TO ROBCOM INDUSTRIES (TM) TERMLINK $port
+        $date
+        __________________________________________
+
         EOT;
     }
 
@@ -134,10 +119,8 @@ class SystemService
         echo <<< EOT
         ROBCOM INDUSTRIES VIRTUAL OPERATING SYSTEM
         COPYRIGHT 1975-1977 ROBCOM INDUSTRIES
-        -Server $server_id-
 
-        ACCOUNT: $username
-        SESSION: $last_login
+        WELCOME, $username ($last_login)
         __________________________________________
         EOT;
     }

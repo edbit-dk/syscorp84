@@ -140,7 +140,7 @@ class UserService extends User
             // Cache::forget(self::key());
             Session::remove(self::$auth);
         }
-        echo "SUCCESS: SESSION TERMINATED\n\n";
+        echo "SUCCESS: LOGGING OUT\n\n";
     }
 
     public static function count()

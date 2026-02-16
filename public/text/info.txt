@@ -1,4 +1,4 @@
-                                HackNet
+                                FallHack
     This terminal allows access to ARPANET (1969-1990), the transcontinental network 
     operated by the US Military, stretching from US to UK and Norway by sattelite.
 
@@ -10,7 +10,7 @@
 Connecting
 ----------
 
-On the web: https://HackNet.net/
+On the web: https://fallhack.com/
 
 (Telehack is not responsible for the availability, reliability or any costs
 associated with this service and receives no income of any kind from its use.)

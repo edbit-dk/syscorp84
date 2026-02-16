@@ -1,24 +1,24 @@
 // Function to handle redirect
-function handleResponse(response, timeout = 1000) {
+function handleResponse(response, timeout = 2500) {
 
     // Rens responsen for eventuelle skjulte tegn
     const cleanResponse = response.trim();
 
     if (cleanResponse.startsWith('TRYING')) {
-        setTimeout(function() { redirectTo('') }, timeout);
+        setTimeout(function() { redirectTo('', true) }, timeout);
     }
 
-    if (cleanResponse.includes('SUCCESS: SESSION TERMINATED')) {
-        setTimeout(function() { redirectTo('') }, timeout);
+    if (cleanResponse.includes('SUCCESS: LOGGING OUT')) {
+        setTimeout(function() { redirectTo('', true) }, timeout);
     }
 
     if (cleanResponse.includes('SUCCESS: SECURITY ACCESS CODE SEQUENCE ACCEPTED')) {
         setTimeout(function() { redirectTo('', true) }, timeout);
     }
 
-    if (cleanResponse.includes('SUCCESS: AUTHENTICATION COMPLETE')) {
+    if (cleanResponse.includes('SUCCESS: LOGON ACCEPTED')) {
         sessionStorage.setItem('host', true);
-        setTimeout(function() { redirectTo('') }, timeout);
+        setTimeout(function() { redirectTo('', true) }, timeout);
     }
 
 }
