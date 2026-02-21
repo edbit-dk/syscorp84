@@ -22,7 +22,7 @@ The main focus of the project is to educate about internet and terminal history 
 - The Institute = Control & Automation Institute (CAI)
 
 # World Structure 
-UNITED STATES OF CORPORATIONS (USC)
+UNITED SYSTEMS OF CORPORATIONS (USC)
 - SCS (SYSCORP-NET) - ADMIN/BOARD
 - CAI (VAX/OS, Colossus, NEURAL-NET) - R&D
 - CSC (CAI, VAX/OS, COPSEC-NET) - POLICE/SECURITY 
