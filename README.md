@@ -7,9 +7,8 @@ It is a full multi-user simulation, including simulated hosts. The simulation ta
 The main focus of the project is to educate about internet and terminal history and technology.
 
 # Fallout inspiration 
-- UOS = V/OS (Virtual Operating System)
+- UOS = U/OS (Unified Operating System)
 - ZAX = VAX/OS (Virtual Advanced eXecution Operating System)
-- Maineframe = MV/OS (Mainframe Virtual Operating System)
 - The Enclave = The SysCorp Syndicate (SCS) 
 - IBM = International Data Machines Corp. (IDM)
 - Vault-Tec = Corporate Security Systems Corp. (COP-SEC / CSC)
@@ -27,7 +26,7 @@ UNITED SYSTEMS OF CORPORATIONS (USC)
 - CAI (VAX/OS, Colossus, NEURAL-NET) - R&D
 - CSC (CAI, VAX/OS, COPSEC-NET) - POLICE/SECURITY 
 - DFC (VAX/OS, DEFCOM-NET) - MILITARY/TECH 
-- GEC (IDM, SpaceH, (M)V/OS, RobCom, GEC-NET) - ENERGY/INDUSTRY/INFRASTRUCTURE
+- GEC (IDM, SpaceH, U/OS, RobCom, GEC-NET) - ENERGY/INDUSTRY/INFRASTRUCTURE
 
 # Roadmap
 - [X] Boot sequence
