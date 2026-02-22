@@ -349,7 +349,7 @@ function handleSuccessfulExit(command) {
         if (['boot'].includes(command)) {
             localStorage.removeItem('boot');
         }
-        redirectTo('', false);
+        redirectTo('', true);
     }, 1000);
 }// Function to send command to server
 function sendCommand(command, data, queryString = '') {

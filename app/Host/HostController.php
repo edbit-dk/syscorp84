@@ -136,7 +136,7 @@ class HostController extends AppController
         if(Host::check()) {
             $hosts = Host::data()->connections();
         } else {
-            $hosts = Host::random();
+            $hosts = Host::networks();
         }
 
         if(!$hosts) {

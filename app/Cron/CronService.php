@@ -97,6 +97,7 @@ class CronService
                 $zip->close();
                 unlink($tempZip);
                 echo "SYSTEM UPDATED!";
+                return;
             }
         }
         echo "UPDATE FAILED!";

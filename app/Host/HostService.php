@@ -85,9 +85,14 @@ class HostService
         return Host::inRandomOrder()->limit($limit)->get();
     }
 
+    public static function networks($limit = 5) 
+    {
+        return Host::where('is_network', 1)->limit($limit)->get();
+    }
+
     public static function netstat() 
     {
-        return Host::where('network', 0)->get();
+        return Host::where('is_network', 0)->get();
     }
 
     public static function check() 

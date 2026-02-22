@@ -9,7 +9,7 @@ use App\Host\HostModel as Host;
 
 class FileService
 {
-    public static function create($user_id, $host_id, $file_name, $content): FileModel  
+    public static function create($user_id, $host_id, $filename, $content): FileModel  
     {
         // Fetch the current authenticated user
         $user = User::find($user_id);
@@ -21,8 +21,7 @@ class FileService
         }
 
                     // Check if the file already exists
-            $existingFile = File::where('file_name', $file_name)
-                                ->first();
+            $existingFile = File::where('filename', $filename)->first();
 
             if ($existingFile) {
                 echo 'ERROR: FILE EXISTS';
@@ -31,9 +30,8 @@ class FileService
 
             // Create the new file
             $file = new File();
-            $file->file_name = $file_name;
+            $file->filename = $filename;
             $file->content = $content;
-            $file->folder_id = $folder->id;
             $file->user_id = $user->id;
             $file->host_id = $host->id;
             $file->save();
