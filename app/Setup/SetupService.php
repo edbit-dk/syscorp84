@@ -11,7 +11,7 @@ use DB\Migrations\HostFileTable;
 use DB\Migrations\HelpTable;
 use DB\Migrations\EmailTable;
 use DB\Migrations\FileTable;
-
+use DB\Migrations\UserFileTable;
 use DB\Seeders\LevelSeeder;
 use DB\Seeders\UserSeeder;
 use DB\Seeders\HostSeeder;
@@ -20,6 +20,8 @@ use DB\Seeders\HostUnixUserSeeder;
 use DB\Seeders\HostNodeSeeder;
 use DB\Seeders\HelpSeeder;
 use DB\Seeders\FileSeeder;
+use DB\Seeders\HostFileSeeder;
+use DB\Seeders\UserFileSeeder;
 
 class SetupService
 {
@@ -74,7 +76,10 @@ class SetupService
     {
         FileTable::up();
         HostFileTable::up();
+        UserFileTable::up();
         FileSeeder::run();
+        HostFileSeeder::run();
+        UserFileSeeder::run();  
     }
 
     public static function help()

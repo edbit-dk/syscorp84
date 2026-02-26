@@ -18,11 +18,15 @@ class HostFileTable
             $table->id();
             $table->unsignedInteger('host_id');
             $table->unsignedInteger('file_id');
+            $table->unsignedInteger('owner_id');
             $table->index('host_id');
             $table->index('file_id');
-            $table->unique(['host_id', 'file_id']);
+            $table->index('owner_id');
+            $table->unique(['host_id', 'file_id', 'owner_id']);
             $table->datetimes();
             $table->foreign('host_id')->references('id')->on('hosts')->onDelete('cascade');
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
+            $table->foreign('owner_id')->references('id')->on('users');
         });
         
     }

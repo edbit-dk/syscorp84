@@ -46,6 +46,7 @@ $(document).ready(function() {
             themeConnection();
             sendCommand('main', ''); // Send 'welcome' command if boot has been set
             $('#connection').load('connection');
+            scrollToBottom();
         }, 500);
     }
 });

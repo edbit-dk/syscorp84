@@ -12,11 +12,19 @@ class FileSeeder extends FileTable
      */
     public static function run(): void
     {
-        DB::table((new self)->table)->insert([
-            ['filename' => 'trace.log'],
-            ['filename' => 'config.sys'],
-            ['filename' => 'notes.txt']
-        ]);
+        $hosts = require BASE_PATH . '/config/files.php';
+        $chunkSize = 500; // Adjust based on server capabilities
+
+        DB::beginTransaction();
+        try {
+            foreach (array_chunk($hosts, $chunkSize) as $chunk) {
+                DB::table((new self)->table)->insert($chunk);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
     }
 
 }

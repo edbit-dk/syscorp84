@@ -3,18 +3,17 @@
 namespace DB\Seeders;
 
 use Illuminate\Database\Capsule\Manager as DB;
-use DB\Migrations\HostNodeTable;
+use DB\Migrations\HostFileTable;
 
-use App\Host\HostModel as Host;
 
-class HostNodeSeeder extends HostNodeTable
+class HostFileSeeder extends HostFileTable
 {
     /**
      * Seed the application's database.
      */
     public static function run(): void
     {
-        $nodes = require BASE_PATH . '/config/host_nodes.php';
+        $nodes = require BASE_PATH . '/config/host_files.php';
         $chunkSize = 500; // Adjust based on server capabilities
 
         DB::beginTransaction();

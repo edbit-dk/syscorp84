@@ -17,10 +17,10 @@ class FileTable extends File
         DB::schema()->create((new self)->table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('filename');
-            $table->string('encrypt_key')->default('');
+            $table->string('type')->default('txt'); // txt, exe, sys, log
+            $table->integer('size')->unsigned()->default(1);
+            $table->string('encrypt_key')->nullable();
             $table->longText('content')->nullable();
-            $table->unsignedInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
             $table->datetimes();
         });
     }

@@ -37,7 +37,9 @@ class HostModel extends AppModel
     // A host can have many files
     public function files()
     {
-        return $this->hasMany(File::class, 'host_id');
+        return $this->belongsToMany(File::class, 'host_file')
+                ->withPivot('owner_id')
+                ->withTimestamps();
     }
 
     public function file($name)

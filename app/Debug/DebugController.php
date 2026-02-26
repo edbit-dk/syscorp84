@@ -18,11 +18,10 @@ class DebugController extends AppController
     public function dump()
     {
         $host_password = Host::password();
-        $host_admin = Host::admin();
         
         // Initialiser ord
         Dump::words(wordlist(strlen($host_password), Host::level(), 'word_list.txt'));
-        Dump::correct([$host_admin, $host_password]);
+        Dump::correct(['ADMIN', $host_password]);
 
         // Håndter input FØR vi genererer headeren
         if ($input = $this->data) {

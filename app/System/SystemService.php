@@ -152,7 +152,7 @@ class SystemService
         $last_ip = User::data()->ip;
 
         $host = Hosts::where('id', 1)->first();
-        $id = $host->id;
+        $id = $host->ip;
         $os = $host->os;
         $org = $host->org;
         $location = $host->location;
@@ -173,7 +173,7 @@ class SystemService
         | IDM CORPORATION UNIFIED DISK OPERATING SYSTEM |
         |      COPYRIGHT 1975-1977 IDM CORPORATION      |
         =-----------------------------------------------=
-                          -SERVER $id-
+                        -SERVER $id-
 
         SESSION: {$last_login} FROM $last_ip
         ($os): $current_date
@@ -208,7 +208,7 @@ class SystemService
         $host = Host::data();
         $last_ip = User::data()->ip;
         $os = $host->os;
-        $id = $host->id;
+        $id = $host->ip;
         $location = $host->location;
         $motd = $host->motd;
         $notes =  $host->notes;
@@ -244,7 +244,7 @@ class SystemService
         | IDM CORPORATION UNIFIED DISK OPERATING SYSTEM |
         |      COPYRIGHT 1975-1977 IDM CORPORATION      |
         =-----------------------------------------------=
-                            -SERVER $id-
+                        -SERVER $id-
 
         SESSION: {$last_login} FROM $last_ip
         ($os): $current_date

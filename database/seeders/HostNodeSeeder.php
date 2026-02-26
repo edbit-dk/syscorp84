@@ -14,7 +14,7 @@ class HostNodeSeeder extends HostNodeTable
      */
     public static function run(): void
     {
-        $nodes = require BASE_PATH . '/config/nodes.php';
+        $nodes = require BASE_PATH . '/config/host_nodes.php';
         $chunkSize = 500; // Adjust based on server capabilities
 
         DB::beginTransaction();

@@ -30,7 +30,7 @@ class UserModel extends AppModel
         'active' => 'active',
         'level_id' => 'level_id',
         'ip' => 'ip',
-        'xp' => 'xp',
+        'credits' => 'credits',
         'last_login' => 'last_login',
         'created' => 'created_at'
     ];
@@ -39,12 +39,19 @@ class UserModel extends AppModel
     // A user can have many files
     public function files()
     {
-        return $this->hasMany(File::class);
+        return $this->belongsToMany(File::class, 'user_file')
+                    ->withPivot('version', 'is_active') // Hent ekstra felter fra pivot
+                    ->withTimestamps();
+    }
+
+    public function tools()
+    {
+        return $this->files()->wherePivot('is_active', true)->get();
     }
 
     public function emails()
     {
-        return $this->hasMany(Email::class);
+        return $this->hasMany(Email::class);    
     }
 
     public function hosts(): BelongsToMany

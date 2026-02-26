@@ -16,7 +16,7 @@ html, body {
 
 #terminal-wrapper {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     background-color: var(--fallout-bg);
     padding: 50px; 
     box-sizing: border-box;
@@ -33,6 +33,9 @@ html, body {
     overflow-y: auto;
     overflow-x: auto;
     position: relative;
+
+    /* Sikrer at der altid er plads til at scrolle ned til input */
+    padding-bottom: 20px;
 }
 
 /* Dynamisk glød baseret på firmaets farve */

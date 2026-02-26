@@ -15,9 +15,7 @@ class FileModel extends AppModel
 
     protected $maps = [
         'filename' => 'filename',
-        'content' => 'content',
-        'host_id' => 'host_id',
-        'user_id' => 'user_id',
+        'content' => 'content'
     ];
 
     // A file belongs to a user (owner)
