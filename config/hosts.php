@@ -162,7 +162,7 @@ return [
         'notes' => 'SYSADMIN: ADMIN@SYSCORP.GOV',
         'os' => 'U/DOS V3.0',
         'ip' => random_ip(),
-        'is_network' => 1,
+        'is_network' => 0,
         'level_id' => 6,
         'created_at' => timestamp("1950-01-30 06:30:00", true)
     ],
