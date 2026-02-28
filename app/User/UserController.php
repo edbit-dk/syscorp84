@@ -26,13 +26,17 @@ class UserController extends AppController
 
             if(Auth::login($input['username'], $input['password'])) {
                 Host::attempt(0, Auth::id());
-                sleep(1);
-                echo 'SUCCESS: LOGON ACCEPTED';
+
+                Auth::data()->update([
+                    'credits' => Auth::data()->credits + 5
+                ]);
+
+                echo "VERIFYING CREDENTIALS...";
                 exit;  
 
             } else {
                 echo <<< EOT
-                ERROR: ACCESS DENIED. INVALID CREDENTIALS!
+                ERROR: ACCESS DENIED!
                 EOT;
                 exit;
             }    
@@ -42,15 +46,16 @@ class UserController extends AppController
     public function user() 
     {
         $user = Auth::data();
-        $password = isset($user->password) ? base64_encode($user->password) : null;
+        $password = isset($user->password) ? "#$user->password#" : null;
 
-        echo "ACCESS CODE: {$user->code} \n";
-        echo "SIGNUP: {$user->created_at} \n";
-        echo "USERNAME: {$user->username} \n";
-        echo "PASSWORD: {$password} \n";
-        echo "LEVEL: {$user->level_id} \n";
-        echo "XP: {$user->xp} \n";
-        echo "REP: {$user->rep} \n";
+        echo <<< EOT
+        USER-ID: #{$user->code}
+        ENROLL: {$user->created_at}
+        ROLE: {$user->role}
+        USERNAME: {$user->username}
+        PASSWORD: {$password}
+        CREDITS: {$user->credits}
+        EOT;
     }
 
     public function password()
@@ -60,7 +65,7 @@ class UserController extends AppController
                 'password' => $this->data
             ]);
     
-            echo 'SUCCESS: PASSWORD CHANGED';
+            echo 'PASSWORD CHANGED';
         }
     }
 
@@ -94,7 +99,7 @@ class UserController extends AppController
         if(Auth::login($input['username'], $input['password'])) {
             Host::attempt(0, Auth::id());
             sleep(1);
-            echo 'SUCCESS: LOGON ACCEPTED';
+            echo 'ACCESS GRANTED!';
             exit;  
 
         } else {

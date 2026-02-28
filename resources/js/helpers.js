@@ -4,23 +4,31 @@ function handleResponse(response, timeout = 2500) {
     // Rens responsen for eventuelle skjulte tegn
     const cleanResponse = response.trim();
 
-    if (cleanResponse.startsWith('SUCCESS: ACCESSING')) {
+    if (cleanResponse.startsWith('ACCESSING')) {
         setTimeout(function() { redirectTo('') }, timeout);
     }
 
-    if (cleanResponse.includes('SUCCESS: LOGGING OUT')) {
+    if (cleanResponse.includes('LOGGING OUT...')) {
         setTimeout(function() { redirectTo('') }, timeout);
     }
 
-    if (cleanResponse.includes('SUCCESS: SECURITY ACCESS CODE SEQUENCE ACCEPTED')) {
+    if (cleanResponse.includes('SECURITY ACCESS CODE SEQUENCE ACCEPTED')) {
         setTimeout(function() { redirectTo('') }, timeout);
     }
 
-    if (cleanResponse.includes('SUCCESS: LOGON ACCEPTED')) {
+    if (cleanResponse.includes('VERIFYING CREDENTIALS')) {
         sessionStorage.setItem('host', true);
         setTimeout(function() { redirectTo('') }, timeout);
     }
 
+}
+
+function refreshConnection() {
+    $('#connection').load('connection', function() {
+        themeConnection();
+        scrollToBottom();
+        console.log("Connection UI updated with theme.");
+    });
 }
 
 // Function to redirect to a specific query string
@@ -30,8 +38,8 @@ function redirectTo(url, reload = false, timeout = 2500) {
     }
     //clearTerminal();
     setTimeout(function() { 
+        refreshConnection();
         sendCommand('main', ''); 
-        $('#connection').load('connection');
     }, timeout);}
 
 // Function to validate the string pattern

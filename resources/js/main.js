@@ -28,6 +28,21 @@ $(document).ready(function() {
     //Check commands available
     autoHelp();
 
+    // Gør det muligt at klikke på alle ord, der er genereret
+    $('#terminal').on('click', '.terminal-word', function() {
+        const clickedText = $(this).text();
+        const $input = $('#command-input');
+        
+        $input.val(clickedText);
+        $input.focus();
+        
+        // Valgfrit: Giv et lille visuelt "flash" når man klikker
+        $(this).css('background-color', '#00ff00').delay(100).queue(function(next){
+            $(this).css('background-color', '');
+            next();
+        });
+    });
+
     // Check if 'boot' command has been sent during the current session
     if (!localStorage.getItem('boot')) {
 
@@ -43,9 +58,9 @@ $(document).ready(function() {
     } else {
 
         setTimeout(function() {
+            refreshConnection();
             themeConnection();
             sendCommand('main', ''); // Send 'welcome' command if boot has been set
-            $('#connection').load('connection');
             scrollToBottom();
         }, 500);
     }

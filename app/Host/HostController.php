@@ -89,6 +89,15 @@ class HostController extends AppController
             $host_id = $host->id;
         }
 
+        $user = User::data();
+
+        if($host->credits > $user->credits) {
+            echo <<<EOT
+            ERROR: ACCESS DENIED. CREDITS TOO LOW!
+            EOT;
+            exit;
+        }
+
         if(Host::check()) {
             
             if(Host::data()->node($host_id) || Host::data()->host($host_id)) {
@@ -108,8 +117,7 @@ class HostController extends AppController
             $ip = Host::data()->ip;
 
             echo <<< EOT
-
-            SUCCESS: ACCESSING $ip...
+            ACCESSING $ip...
             EOT;
             exit;
         }
@@ -138,13 +146,11 @@ class HostController extends AppController
         }
 
         if(!$hosts) {
-            echo "ERROR: NO COMLINKS FOUND\n";
+            echo "ERROR: NO COMLINKS FOUND!\n";
             exit;
         } 
 
-        $count = Host::count();
-
-        echo "SEARCHING COMLINKS...\n\n$count ACTIVE STATIONS:\n";
+        echo "SEARCHING COMLINKS...\n\nACTIVE STATIONS:\n";
 
         foreach ($hosts as $host) {
 
@@ -160,7 +166,7 @@ class HostController extends AppController
             
             echo <<<EOT
 
-            $access $host->hostname: $host->org - $host->location
+            $access $host->hostname: $host->org - $host->location (CREDITS $host->credits)
 
             EOT;
         }
@@ -193,11 +199,11 @@ class HostController extends AppController
         if(!empty($data)) {
             if(Host::rlogin($data)) {
                 echo <<< EOT
-                SUCCESS: AUTHENTICATION COMPLETE
+                AUTHENTICATION COMPLETE!
                 EOT;
             } else {
                 echo <<< EOT
-                ERROR: INVALID CREDENTIALS
+                ERROR: INVALID CREDENTIALS!
                 EOT;
             }
         }
@@ -217,7 +223,7 @@ class HostController extends AppController
 
         if(Host::logon($input['username'],  $input['password'])) {
             echo <<< EOT
-            SUCCESS: AUTHENTICATION COMPLETE
+            AUTHENTICATION COMPLETE!
             EOT;
         } else {
              // Calculate remaining attempts
@@ -231,7 +237,7 @@ class HostController extends AppController
 
              } else {
                 echo <<< EOT
-                ERROR: INVALID CREDENTIALS
+                ERROR: INVALID CREDENTIALS!
                 EOT;
                 exit;
              }
@@ -242,7 +248,7 @@ class HostController extends AppController
     public function logoff() 
     {
         Host::logoff();
-        echo "\nSUCCESS: SESSION TERMINATED\n";
+        echo "\nDISCONNECTING...\n";
     }
 
 }

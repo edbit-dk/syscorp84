@@ -14,7 +14,7 @@ function sendCommand(command, data, queryString = '') {
             success: function(response) {
                 loadSavedTheme();
                 
-                $('#connection').load('connection');
+                refreshConnection();
                 
                 if (isPasswordPrompt) {
                    handlePasswordPromptResponse(response); // Handle password prompt response

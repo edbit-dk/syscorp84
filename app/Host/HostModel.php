@@ -31,7 +31,7 @@ class HostModel extends AppModel
         'os' => 'os',
 		'ip' => 'ip',
 		'active' => 'active',
-        'level_id' => 'level_id'
+        'credits' => 'credits'
     ];
 
     // A host can have many files

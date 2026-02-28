@@ -107,3 +107,14 @@ html, body {
 }
 
 #terminal-wrapper::-webkit-scrollbar { width: 0px; }
+
+.terminal-word {
+    cursor: pointer;
+    transition: background 0.1s;
+    display: inline-block; /* Sikrer at baggrunden dækker ordet ordentligt */
+}
+
+.terminal-word:hover {
+    background-color: var(--fallout-green); /* Din klassiske terminal grøn */
+    color: #000;              /* Sort tekst ved hover */
+}

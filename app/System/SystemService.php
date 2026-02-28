@@ -50,8 +50,7 @@ class SystemService
             echo <<< EOT
             UPLINK WITH CENTRAL USOC/NET INITIATED...
 
-            SUCCESS: SECURITY ACCESS CODE SEQUENCE ACCEPTED.
-            
+            SECURITY ACCESS CODE SEQUENCE ACCEPTED.
             WELCOME TO USOC, $remote_ip.
             EOT;
             exit;
@@ -130,9 +129,10 @@ class SystemService
 
     public static function home() 
     {
-        $username = strtoupper(User::username());
+        $username = User::data()->code;
         $last_login = User::data()->last_login;
         $server_id = Host::id();
+        $last_ip = User::data()->ip;
 
         echo <<< EOT
         =--------------------------------------------------=
@@ -140,7 +140,8 @@ class SystemService
         |      COPYRIGHT 1975-1977 SYSTEM CORPORATION      |
         =--------------------------------------------------=
 
-        WELCOME, $username ($last_login)
+        WELCOME, USER #$username 
+        LAST LOGON: $last_login FROM $last_ip
         ____________________________________________________
         EOT;
     }
@@ -176,7 +177,7 @@ class SystemService
         =--------------------------------------------------=
                        -SERVER $ip-
 
-        SESSION: {$last_login} FROM $last_ip
+        LAST LOGON: {$last_login} FROM $last_ip
         ($os): $current_date
 
         $system_info
@@ -191,15 +192,15 @@ class SystemService
         $org = $host->org;
         
         echo <<< EOT
-        =--------------------------------------------------=
+        =---------------------------------------------------=
         | SYSTEM CORPORATION UNIFIED DISK OPERATING SYSTEM |
         |      COPYRIGHT 1975-1977 SYSTEM CORPORATION      |
-        =--------------------------------------------------=
+        =---------------------------------------------------=
         $org 
         $os   
 
-        WELCOME, USER. AUTHORIZED PERSONNEL ONLY!
-        _________________________________________________
+        AUTHORIZED PERSONNEL ONLY!
+        ____________________________________________________
 
         EOT;
     }
@@ -247,7 +248,7 @@ class SystemService
         =--------------------------------------------------=
                        -SERVER $ip-
 
-        SESSION: {$last_login} FROM $last_ip
+        LAST LOGON: {$last_login} FROM $last_ip
         ($os): $current_date
         
         $system_info

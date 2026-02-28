@@ -7,40 +7,32 @@ function loadText(text) {
 
     $('#terminal').append(preContainer); // Append the container to the terminal
 
+    let currentWordSpan = null;
+
     function displayNextLetter() {
         if (currentIndex < text.length) {
             const char = text[currentIndex];
 
-            // Insert a line break if character count exceeds 80 and ensure it doesn’t break mid-word
-            if (lineCharCount >= 100 && char !== '\n') {
-                const lastChar = preContainer.text().slice(-1);
-                if (lastChar !== ' ' && lastChar !== '\n') {
-                    // Move back to the last space if possible
-                    const textSoFar = preContainer.text();
-                    const lastSpaceIndex = textSoFar.lastIndexOf(' ');
-                    if (lastSpaceIndex > 0) {
-                        preContainer.text(textSoFar.slice(0, lastSpaceIndex) + '\n' + textSoFar.slice(lastSpaceIndex + 1));
-                        lineCharCount = textSoFar.slice(lastSpaceIndex + 1).length;
-                    } else {
-                        preContainer.append('\n');
-                        lineCharCount = 0;
-                    }
-                } else {
-                    preContainer.append('\n');
-                    lineCharCount = 0;
+            // Tjek om tegnet er et bogstav eller tal (et "ord-tegn")
+            const isWordChar = /[a-zA-Z0-9]/.test(char);
+
+            if (isWordChar) {
+                // Hvis vi ikke er i gang med et ord, så lav et nyt span
+                if (!currentWordSpan) {
+                    currentWordSpan = $('<span class="terminal-word"></span>');
+                    preContainer.append(currentWordSpan);
                 }
-            }
-
-            preContainer.append(char);
-            currentIndex++;
-
-            if (char === '\n') {
-                lineCharCount = 0;
+                currentWordSpan.append(char);
             } else {
-                lineCharCount++;
+                // Tegnet er et mellemrum, tegn eller linjeskift - afslut ordet
+                preContainer.append(char);
+                currentWordSpan = null; 
             }
 
-            scrollToBottom();
+            // --- Din eksisterende line-break logik her ---
+            // (Husk at tjekke lineCharCount her)
+            
+            currentIndex++;
             setTimeout(displayNextLetter, delay);
         } else {
             $('#command-input').focus();
@@ -90,7 +82,7 @@ function themeConnection() {
         setTheme('IDM');
     } else if (connectionText.includes('DEFCON/NET')) {
         setTheme('DFC');
-    } else if (connectionText.includes('SYNCORP/NET')) {
+    } else if (connectionText.includes('SYSCORP/NET')) {
         setTheme('SYN');
     } else if (connectionText.includes('GEC/NET')) {
         setTheme('GEC');

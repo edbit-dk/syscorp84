@@ -13,12 +13,12 @@ class LevelSeeder extends LevelTable
     public static function run(): void
     {
         DB::table((new self)->table)->insert([
-            ['id' => 1, 'status' => 'BEGINNER', 'level' => 0,'credit' => 1,'min' => 2,'max' => 3],
-            ['id' => 2, 'status' => 'NOVICE', 'level' => 15,'credit' => 2,'min' => 4,'max' => 5],
-            ['id' => 3, 'status' => 'SKILLED', 'level' => 25,'credit' => 3,'min' => 6,'max' => 8],
-            ['id' => 4, 'status' => 'ADVANCED', 'level' => 50,'credit' => 4,'min' => 8,'max' => 10],
-            ['id' => 5, 'status' => 'EXPERT', 'level' => 76,'credit' => 5,'min' => 10,'max' => 12],
-            ['id' => 6, 'status' => 'MASTER', 'level' => 100,'credit' => 10,'min' => 12,'max' => 15]
+            ['id' => 1, 'status' => 'BEGINNER', 'credits' => 0,'min' => 2,'max' => 3],
+            ['id' => 2, 'status' => 'NOVICE', 'credits' => 15,'min' => 4,'max' => 5],
+            ['id' => 3, 'status' => 'SKILLED', 'credits' => 25,'min' => 6,'max' => 8],
+            ['id' => 4, 'status' => 'ADVANCED', 'credits' => 50,'min' => 8,'max' => 10],
+            ['id' => 5, 'status' => 'EXPERT', 'credits' => 75,'min' => 10,'max' => 12],
+            ['id' => 6, 'status' => 'MASTER', 'credits' => 100,'min' => 12,'max' => 15]
         ]);
     }
 

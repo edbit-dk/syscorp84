@@ -9,10 +9,9 @@ class LevelModel extends AppModel
     protected $table = 'levels';
 
     protected $fillable = [
-		'user_id',
-        'badge',
+		'status',
         'level',
-        'reward'
+        'credit'
     ];
 
     public $timestamps = true;

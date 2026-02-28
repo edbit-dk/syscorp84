@@ -28,7 +28,7 @@ function handleNewUser(username) {
     
     if (!username) {
         // This shouldn't happen since args should be checked in handleUserInput()
-        loadText("ERROR: USERNAME REQUIRED");
+        loadText("ERROR: USERNAME REQUIRED!");
         return;
     } else {
         // Assign the provided username
@@ -70,7 +70,7 @@ function handlePasswordPromptResponse(response) {
         sendCommand('enroll', usernameForNewUser + ' ' + (userPassword || ""));
     }
 
-    if (response.startsWith("ERROR: ACCESS DENIED") || response.startsWith("WARNING")) {
+    if (response.startsWith("ERROR: ACCESS DENIED!") || response.startsWith("WARNING")) {
         loadText(response);
         isPasswordPrompt = false;
         $('#command-input').attr('type', 'text');

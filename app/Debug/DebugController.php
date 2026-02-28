@@ -36,7 +36,7 @@ class DebugController extends AppController
         $attemptsLeft = 4 - count(Dump::data());
         
         $header = "ROBCOM INDUSTRIES (TM) TERMLINK PROTOCOL\n";
-        $header .= "ENTER PASSWORD NOW\n";
+        $header .= "PASSWORD REQUIRED!\n";
         $header .= "ATTEMPT(s) LEFT: " . ($attemptsLeft < 0 ? 0 : $attemptsLeft) . "\n\n";
 
         // Vis terminalen

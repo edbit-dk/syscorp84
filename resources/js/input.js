@@ -205,6 +205,6 @@ function handleSuccessfulExit(command) {
         if (['boot'].includes(command)) {
             localStorage.removeItem('boot');
         }
-        redirectTo('', true);
+        redirectTo('');
     }, 1000);
 }

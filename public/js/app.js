@@ -28,6 +28,21 @@ $(document).ready(function() {
     //Check commands available
     autoHelp();
 
+    // Gør det muligt at klikke på alle ord, der er genereret
+    $('#terminal').on('click', '.terminal-word', function() {
+        const clickedText = $(this).text();
+        const $input = $('#command-input');
+        
+        $input.val(clickedText);
+        $input.focus();
+        
+        // Valgfrit: Giv et lille visuelt "flash" når man klikker
+        $(this).css('background-color', '#00ff00').delay(100).queue(function(next){
+            $(this).css('background-color', '');
+            next();
+        });
+    });
+
     // Check if 'boot' command has been sent during the current session
     if (!localStorage.getItem('boot')) {
 
@@ -43,9 +58,9 @@ $(document).ready(function() {
     } else {
 
         setTimeout(function() {
+            refreshConnection();
             themeConnection();
             sendCommand('main', ''); // Send 'welcome' command if boot has been set
-            $('#connection').load('connection');
             scrollToBottom();
         }, 500);
     }
@@ -90,23 +105,31 @@ function handleResponse(response, timeout = 2500) {
     // Rens responsen for eventuelle skjulte tegn
     const cleanResponse = response.trim();
 
-    if (cleanResponse.startsWith('SUCCESS: ACCESSING')) {
+    if (cleanResponse.startsWith('ACCESSING')) {
         setTimeout(function() { redirectTo('') }, timeout);
     }
 
-    if (cleanResponse.includes('SUCCESS: LOGGING OUT')) {
+    if (cleanResponse.includes('LOGGING OUT...')) {
         setTimeout(function() { redirectTo('') }, timeout);
     }
 
-    if (cleanResponse.includes('SUCCESS: SECURITY ACCESS CODE SEQUENCE ACCEPTED')) {
+    if (cleanResponse.includes('SECURITY ACCESS CODE SEQUENCE ACCEPTED')) {
         setTimeout(function() { redirectTo('') }, timeout);
     }
 
-    if (cleanResponse.includes('SUCCESS: LOGON ACCEPTED')) {
+    if (cleanResponse.includes('VERIFYING CREDENTIALS')) {
         sessionStorage.setItem('host', true);
         setTimeout(function() { redirectTo('') }, timeout);
     }
 
+}
+
+function refreshConnection() {
+    $('#connection').load('connection', function() {
+        themeConnection();
+        scrollToBottom();
+        console.log("Connection UI updated with theme.");
+    });
 }
 
 // Function to redirect to a specific query string
@@ -116,8 +139,8 @@ function redirectTo(url, reload = false, timeout = 2500) {
     }
     //clearTerminal();
     setTimeout(function() { 
+        refreshConnection();
         sendCommand('main', ''); 
-        $('#connection').load('connection');
     }, timeout);}
 
 // Function to validate the string pattern
@@ -348,7 +371,7 @@ function handleSuccessfulExit(command) {
         if (['boot'].includes(command)) {
             localStorage.removeItem('boot');
         }
-        redirectTo('', true);
+        redirectTo('');
     }, 1000);
 }// Function to send command to server
 function sendCommand(command, data, queryString = '') {
@@ -366,7 +389,7 @@ function sendCommand(command, data, queryString = '') {
             success: function(response) {
                 loadSavedTheme();
                 
-                $('#connection').load('connection');
+                refreshConnection();
                 
                 if (isPasswordPrompt) {
                    handlePasswordPromptResponse(response); // Handle password prompt response
@@ -468,7 +491,7 @@ function handleNewUser(username) {
     
     if (!username) {
         // This shouldn't happen since args should be checked in handleUserInput()
-        loadText("ERROR: USERNAME REQUIRED");
+        loadText("ERROR: USERNAME REQUIRED!");
         return;
     } else {
         // Assign the provided username
@@ -510,7 +533,7 @@ function handlePasswordPromptResponse(response) {
         sendCommand('enroll', usernameForNewUser + ' ' + (userPassword || ""));
     }
 
-    if (response.startsWith("ERROR: ACCESS DENIED") || response.startsWith("WARNING")) {
+    if (response.startsWith("ERROR: ACCESS DENIED!") || response.startsWith("WARNING")) {
         loadText(response);
         isPasswordPrompt = false;
         $('#command-input').attr('type', 'text');
@@ -533,40 +556,32 @@ function loadText(text) {
 
     $('#terminal').append(preContainer); // Append the container to the terminal
 
+    let currentWordSpan = null;
+
     function displayNextLetter() {
         if (currentIndex < text.length) {
             const char = text[currentIndex];
 
-            // Insert a line break if character count exceeds 80 and ensure it doesn’t break mid-word
-            if (lineCharCount >= 100 && char !== '\n') {
-                const lastChar = preContainer.text().slice(-1);
-                if (lastChar !== ' ' && lastChar !== '\n') {
-                    // Move back to the last space if possible
-                    const textSoFar = preContainer.text();
-                    const lastSpaceIndex = textSoFar.lastIndexOf(' ');
-                    if (lastSpaceIndex > 0) {
-                        preContainer.text(textSoFar.slice(0, lastSpaceIndex) + '\n' + textSoFar.slice(lastSpaceIndex + 1));
-                        lineCharCount = textSoFar.slice(lastSpaceIndex + 1).length;
-                    } else {
-                        preContainer.append('\n');
-                        lineCharCount = 0;
-                    }
-                } else {
-                    preContainer.append('\n');
-                    lineCharCount = 0;
+            // Tjek om tegnet er et bogstav eller tal (et "ord-tegn")
+            const isWordChar = /[a-zA-Z0-9]/.test(char);
+
+            if (isWordChar) {
+                // Hvis vi ikke er i gang med et ord, så lav et nyt span
+                if (!currentWordSpan) {
+                    currentWordSpan = $('<span class="terminal-word"></span>');
+                    preContainer.append(currentWordSpan);
                 }
-            }
-
-            preContainer.append(char);
-            currentIndex++;
-
-            if (char === '\n') {
-                lineCharCount = 0;
+                currentWordSpan.append(char);
             } else {
-                lineCharCount++;
+                // Tegnet er et mellemrum, tegn eller linjeskift - afslut ordet
+                preContainer.append(char);
+                currentWordSpan = null; 
             }
 
-            scrollToBottom();
+            // --- Din eksisterende line-break logik her ---
+            // (Husk at tjekke lineCharCount her)
+            
+            currentIndex++;
             setTimeout(displayNextLetter, delay);
         } else {
             $('#command-input').focus();
@@ -616,7 +631,7 @@ function themeConnection() {
         setTheme('IDM');
     } else if (connectionText.includes('DEFCON/NET')) {
         setTheme('DFC');
-    } else if (connectionText.includes('SYNCORP/NET')) {
+    } else if (connectionText.includes('SYSCORP/NET')) {
         setTheme('SYN');
     } else if (connectionText.includes('GEC/NET')) {
         setTheme('GEC');

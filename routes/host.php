@@ -19,7 +19,7 @@ if(Host::guest() && User::auth()) {
     $app->get('/run', [DebugController::class, 'run']);  
     
     // sysadmin571_bypass /:
-    $app->get('/sysadmin571_bypass', [HostController::class, 'sysadmin']);
+    $app->get('/sysadmin_bypass', [HostController::class, 'sysadmin']);
 }
 
 if(Host::auth() && !Host::guest()) {
