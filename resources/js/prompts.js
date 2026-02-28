@@ -22,18 +22,18 @@ function handleLogon(username) {
 // Function to handle the NEWUSER command
 function handleNewUser(username) {
     if (!sessionStorage.getItem('uplink')) {
-        loadText("ERROR: UPLINK REQUIRED.");
+        loadText("ERROR: UPLINK REQUIRED");
         return;
     }
     
     if (!username) {
         // This shouldn't happen since args should be checked in handleUserInput()
-        loadText("ERROR: USERNAME REQUIRED.");
+        loadText("ERROR: USERNAME REQUIRED");
         return;
     } else {
         // Assign the provided username
         usernameForNewUser = username;
-        currentCommand = 'register';
+        currentCommand = 'enroll';
     }
 
     // Proceed to password prompt
@@ -52,8 +52,8 @@ function handlePasswordPrompt() {
     if (currentCommand === 'logon' || currentCommand === 'login') {
         sendCommand(currentCommand, usernameForLogon + ' ' + userPassword);
         usernameForLogon = ''; // Clear the username for logon
-    } else if (currentCommand === 'register') {
-        sendCommand('register', usernameForNewUser + ' ' + userPassword);
+    } else if (currentCommand === 'enroll') {
+        sendCommand('enroll', usernameForNewUser + ' ' + userPassword);
         usernameForNewUser = ''; // Clear the username for new user creation
     }
 
@@ -67,7 +67,7 @@ function handlePasswordPromptResponse(response) {
     if (usernameForLogon) {
         sendCommand('logon', usernameForLogon + ' ' + (userPassword || ""));
     } else if (usernameForNewUser) {
-        sendCommand('register', usernameForNewUser + ' ' + (userPassword || ""));
+        sendCommand('enroll', usernameForNewUser + ' ' + (userPassword || ""));
     }
 
     if (response.startsWith("ERROR: ACCESS DENIED") || response.startsWith("WARNING")) {

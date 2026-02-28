@@ -358,60 +358,65 @@ template {
 
 
 
+/* 1. VARIABLER OG GRUNDLAG */
 :root {
-    --fallout-green: #2dfd8b; /* Standard */
-    --fallout-bg: #0b1a13;    /* Meget mørk grønlig sort */
-    --font-size: 22px; 
+    --fallout-green: #2dfd8b;
+    --fallout-bg: #0b1a13;
+    --font-size: 22px;
 }
 
+/* 2. BODY OG HTML */
 html, body {
     background-color: #000;
     margin: 0;
     padding: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     font-family: 'IBM-3270', 'DEC-VT100', monospace;
-    overflow: hidden;
+    overflow: hidden; 
 }
 
+/* 3. TERMINAL WRAPPER - NU MED LYSERE DESIGN */
 #terminal-wrapper {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background-color: var(--fallout-bg);
-    padding: 50px; 
+    
+    /* SCANLINES DIREKTE I BAGGRUNDEN (Gør det lysere end faste lag) */
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.1) 50%, transparent 50%),
+        radial-gradient(circle at center, rgba(45, 253, 139, 0.15) 0%, transparent 85%);
+    background-size: 100% 4px, 100% 100%;
+    
+    padding: 50px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     
-    /* Farven her følger nu temaet */
     color: var(--fallout-green);
-    /* Gløden følger også temaet automatisk */
-    text-shadow: 0 0 10px var(--fallout-green);
-    box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
-    transition: color 0.5s ease, background-color 0.5s ease;
+    /* KRAFTIG TEKST-GLØD FOR AT OPLYSE SKÆRMEN */
+    text-shadow: 0 0 5px var(--fallout-green), 0 0 10px var(--fallout-green);
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
     
     overflow-y: auto;
     overflow-x: auto;
     position: relative;
+    -webkit-overflow-scrolling: touch;
+    transition: color 0.5s ease, background-color 0.5s ease;
 }
 
-/* Dynamisk glød baseret på firmaets farve */
+/* 4. STØJ-LAG (Lagt ind som et diskret filter) */
 #terminal-wrapper::before {
-    content: " ";
-    position: fixed; 
-    top: 0; left: 0; bottom: 0; right: 0;
-    background: 
-        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
-        radial-gradient(var(--fallout-green), rgba(0, 0, 0, 0.25)),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    
-    background-size: 100% 4px, 100% 100%, 150px 150px;
-    opacity: var(--noise-opacit, 0.2); /* Meget subtil glød */
-    z-index: 1000;
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.05; /* Meget lav støj for at holde det lyst */
+    z-index: 10;
     pointer-events: none;
-    transition: opacity 0.5s ease; /* Gør overgangen mellem temaer glidende */
 }
 
+/* 5. INDHOLD */
 #terminal {
     white-space: pre; 
     font-family: inherit;
@@ -421,7 +426,6 @@ html, body {
     display: block;
     width: max-content; 
     min-width: 100%;
-    color: inherit; /* Arver fra wrapper */
 }
 
 #prompt {
@@ -431,67 +435,35 @@ html, body {
     min-width: 100%;
     margin-top: 15px;
     font-size: var(--font-size);
-    padding-bottom: 50px;
+    padding-bottom: 80px;
 }
 
+/* 6. INPUT FELTET */
 #command-input {
-    background: transparent;
-    border: none;
-    outline: none;
-    /* Farven følger temaet */
-    color: var(--fallout-green);
-    font-family: inherit;
-    font-size: inherit;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: var(--fallout-green) !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    text-shadow: 0 0 5px var(--fallout-green);
     flex-grow: 1;
     margin-left: 1ch;
-    
-    /* Markøren følger også temaet */
-    caret-shape: block; 
-    caret-color: var(--fallout-green); 
+    caret-color: var(--fallout-green);
+    -webkit-appearance: none;
 }
 
-/* Skjul scrollbar */
-#terminal-wrapper::-webkit-scrollbar { width: 0px; }
+/* 7. MOBIL */
+@media (max-width: 768px) {
+    #terminal-wrapper { padding: 20px; }
+    :root { --font-size: 18px; }
+}
 
-/* Animationen der simulerer strømsvigt/flimmer */
+/* 8. HACKER EFFEKT (FALL-OUT) */
+.underground-glitch { animation: flicker 0.15s infinite; }
 @keyframes flicker {
-    0% { opacity: 0.98; }
-    5% { opacity: 0.95; }
-    10% { opacity: 0.9; }
-    15% { opacity: 0.98; }
-    30% { opacity: 1; }
-    /* Tilføj et lille horisontalt ryk (glitch) */
-    31% { transform: translateX(1px); }
-    32% { transform: translateX(0); }
+    0% { opacity: 0.96; }
     100% { opacity: 1; }
 }
 
-/* Den kørende synkroniserings-fejl */
-@keyframes vSyncError {
-    0% { top: -10%; }
-    100% { top: 110%; }
-}
-
-/* Klassen der aktiverer effekten */
-.hacker-glitch {
-    animation: flicker 0.1s infinite;
-}
-
-.hacker-glitch::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--fallout-green);
-    opacity: 0.1; /* Meget subtil */
-    box-shadow: 0 0 15px var(--fallout-green);
-    animation: vSyncError 4s linear infinite;
-    pointer-events: none;
-}
-
-/* Gør gløden kraftigere for undergrunden */
-.hacker-glitch #terminal {
-    text-shadow: 0 0 15px var(--fallout-green), 2px 0 5px rgba(255, 255, 255, 0.2);
-}
+#terminal-wrapper::-webkit-scrollbar { width: 0px; }

@@ -46,6 +46,7 @@ $(document).ready(function() {
             themeConnection();
             sendCommand('main', ''); // Send 'welcome' command if boot has been set
             $('#connection').load('connection');
+            scrollToBottom();
         }, 500);
     }
 });
@@ -90,20 +91,20 @@ function handleResponse(response, timeout = 2500) {
     const cleanResponse = response.trim();
 
     if (cleanResponse.startsWith('SUCCESS: ACCESSING')) {
-        setTimeout(function() { redirectTo('', true) }, timeout);
+        setTimeout(function() { redirectTo('') }, timeout);
     }
 
     if (cleanResponse.includes('SUCCESS: LOGGING OUT')) {
-        setTimeout(function() { redirectTo('', true) }, timeout);
+        setTimeout(function() { redirectTo('') }, timeout);
     }
 
     if (cleanResponse.includes('SUCCESS: SECURITY ACCESS CODE SEQUENCE ACCEPTED')) {
-        setTimeout(function() { redirectTo('', true) }, timeout);
+        setTimeout(function() { redirectTo('') }, timeout);
     }
 
     if (cleanResponse.includes('SUCCESS: LOGON ACCEPTED')) {
         sessionStorage.setItem('host', true);
-        setTimeout(function() { redirectTo('', true) }, timeout);
+        setTimeout(function() { redirectTo('') }, timeout);
     }
 
 }
@@ -115,11 +116,9 @@ function redirectTo(url, reload = false, timeout = 2500) {
     }
     //clearTerminal();
     setTimeout(function() { 
-        clearTerminal();
         sendCommand('main', ''); 
-    }, timeout);
-    //$('#connection').load('connection');
-}
+        $('#connection').load('connection');
+    }, timeout);}
 
 // Function to validate the string pattern
 function isUplinkCode(input) {
@@ -223,15 +222,15 @@ function handleUserPrompts(input) {
 
 function handleUsernamePrompt(input) {
     if (input) {
-        if (currentCommand === 'register') {
+        if (currentCommand === 'enroll') {
             usernameForNewUser = input;
-            loadText("ENTER PASSWORD:");
+            loadText("PASSWORD:");
             isUsernamePrompt = false;
             isPasswordPrompt = true;
             $('#command-input').attr('type', 'password');
         } else if (currentCommand === 'login' || currentCommand === 'logon') {
             usernameForLogon = input;
-            loadText("ENTER PASSWORD:");
+            loadText("PASSWORD:");
             isUsernamePrompt = false;
             isPasswordPrompt = true;
             $('#command-input').attr('type', 'password');
@@ -242,12 +241,12 @@ function handleUsernamePrompt(input) {
 }
 
 function handleCommands(command, args) {
-    if (['register', 'logon', 'login'].includes(command) && !sessionStorage.getItem('uplink')) {
+    if (['enroll', 'logon', 'login'].includes(command) && !sessionStorage.getItem('uplink')) {
         loadText("ERROR: UPLINK REQUIRED");
         return;
     }
 
-    if (['logon', 'login', 'register'].includes(command) && sessionStorage.getItem('auth') && !sessionStorage.getItem('host')) {
+    if (['logon', 'login', 'enroll'].includes(command) && sessionStorage.getItem('auth') && !sessionStorage.getItem('host')) {
         loadText("ERROR: LOGOUT REQUIRED");
         return;
     }
@@ -268,7 +267,7 @@ function handleCommands(command, args) {
             sessionStorage.setItem('uplink', true);
             sendCommand(command, args);
             break;
-        case 'register':
+        case 'enroll':
             handleNewUserCommand(args);
             break;
         case 'logon':
@@ -300,7 +299,7 @@ function handleNewUserCommand(args) {
     if (args) {
         handleNewUser(args);
     } else {
-        promptForUsername('register');
+        promptForUsername('enroll');
     }
 }
 
@@ -325,7 +324,7 @@ function handleExitCommands(command, args) {
 }
 
 function promptForUsername(command) {
-    loadText("ENTER USERNAME:");
+    loadText("USERNAME:");
     isUsernamePrompt = true;
     currentCommand = command;
     $('#command-input').attr('type', 'text');
@@ -333,7 +332,7 @@ function promptForUsername(command) {
 
 function promptForPassword(command, username) {
     usernameForLogon = username;
-    loadText("ENTER PASSWORD:");
+    loadText("PASSWORD:");
     isUsernamePrompt = false;
     isPasswordPrompt = true;
     currentCommand = command;
@@ -463,18 +462,18 @@ function handleLogon(username) {
 // Function to handle the NEWUSER command
 function handleNewUser(username) {
     if (!sessionStorage.getItem('uplink')) {
-        loadText("ERROR: UPLINK REQUIRED.");
+        loadText("ERROR: UPLINK REQUIRED");
         return;
     }
     
     if (!username) {
         // This shouldn't happen since args should be checked in handleUserInput()
-        loadText("ERROR: USERNAME REQUIRED.");
+        loadText("ERROR: USERNAME REQUIRED");
         return;
     } else {
         // Assign the provided username
         usernameForNewUser = username;
-        currentCommand = 'register';
+        currentCommand = 'enroll';
     }
 
     // Proceed to password prompt
@@ -493,8 +492,8 @@ function handlePasswordPrompt() {
     if (currentCommand === 'logon' || currentCommand === 'login') {
         sendCommand(currentCommand, usernameForLogon + ' ' + userPassword);
         usernameForLogon = ''; // Clear the username for logon
-    } else if (currentCommand === 'register') {
-        sendCommand('register', usernameForNewUser + ' ' + userPassword);
+    } else if (currentCommand === 'enroll') {
+        sendCommand('enroll', usernameForNewUser + ' ' + userPassword);
         usernameForNewUser = ''; // Clear the username for new user creation
     }
 
@@ -508,7 +507,7 @@ function handlePasswordPromptResponse(response) {
     if (usernameForLogon) {
         sendCommand('logon', usernameForLogon + ' ' + (userPassword || ""));
     } else if (usernameForNewUser) {
-        sendCommand('register', usernameForNewUser + ' ' + (userPassword || ""));
+        sendCommand('enroll', usernameForNewUser + ' ' + (userPassword || ""));
     }
 
     if (response.startsWith("ERROR: ACCESS DENIED") || response.startsWith("WARNING")) {
@@ -590,6 +589,14 @@ function scrollToBottom() {
     }
 }
 
+// Scrol ned når input feltet får fokus
+$('#command-input').on('focus', function() {
+    setTimeout(scrollToBottom, 300); // Lille delay så tastaturet kan nå at poppe op
+});
+
+// Scrol ned hver gang brugeren skriver noget
+$('#command-input').on('input', scrollToBottom);
+
 // Function to clear terminal
 function clearTerminal() {
     $('#terminal').empty();
@@ -605,15 +612,15 @@ function themeConnection() {
     const connectionText = $('#connection').text().toUpperCase();
     
     // Vi tjekker hvilke ord der findes i strengen [@XXXX-NET]
-    if (connectionText.includes('DATA-NET')) {
+    if (connectionText.includes('DATA/NET')) {
         setTheme('IDM');
-    } else if (connectionText.includes('DEFCON-NET')) {
+    } else if (connectionText.includes('DEFCON/NET')) {
         setTheme('DFC');
-    } else if (connectionText.includes('SYNCORP-NET')) {
+    } else if (connectionText.includes('SYNCORP/NET')) {
         setTheme('SYN');
-    } else if (connectionText.includes('GEC-NET')) {
+    } else if (connectionText.includes('GEC/NET')) {
         setTheme('GEC');
-    } else if (connectionText.includes('FALLHACK-NET')) {
+    } else if (connectionText.includes('FALLHACK/NET')) {
         setTheme('FAK');
     } else {
         setTheme('DEFAULT'); // Standard grøn

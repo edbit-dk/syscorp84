@@ -5,20 +5,20 @@ function handleResponse(response, timeout = 2500) {
     const cleanResponse = response.trim();
 
     if (cleanResponse.startsWith('SUCCESS: ACCESSING')) {
-        setTimeout(function() { redirectTo('', true) }, timeout);
+        setTimeout(function() { redirectTo('') }, timeout);
     }
 
     if (cleanResponse.includes('SUCCESS: LOGGING OUT')) {
-        setTimeout(function() { redirectTo('', true) }, timeout);
+        setTimeout(function() { redirectTo('') }, timeout);
     }
 
     if (cleanResponse.includes('SUCCESS: SECURITY ACCESS CODE SEQUENCE ACCEPTED')) {
-        setTimeout(function() { redirectTo('', true) }, timeout);
+        setTimeout(function() { redirectTo('') }, timeout);
     }
 
     if (cleanResponse.includes('SUCCESS: LOGON ACCEPTED')) {
         sessionStorage.setItem('host', true);
-        setTimeout(function() { redirectTo('', true) }, timeout);
+        setTimeout(function() { redirectTo('') }, timeout);
     }
 
 }
@@ -30,11 +30,9 @@ function redirectTo(url, reload = false, timeout = 2500) {
     }
     //clearTerminal();
     setTimeout(function() { 
-        clearTerminal();
         sendCommand('main', ''); 
-    }, timeout);
-    //$('#connection').load('connection');
-}
+        $('#connection').load('connection');
+    }, timeout);}
 
 // Function to validate the string pattern
 function isUplinkCode(input) {

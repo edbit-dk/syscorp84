@@ -1,31 +1,32 @@
 
 
-***** U/DOS (R) V1.10 *****
+***** SU/DOS (R) V1.10 *****
 
-COPYRIGHT 1975 IDM(R)
+COPYRIGHT 1975 SYSCORP(R)
 LOADER V1.10
 EXEC VERSION 75.84
 64K RAM SYSTEM
 101097 BYTES FREE
 LOCAL DISK FOUND
-LOAD ROM(1): U/DOS 110
+LOAD ROM(1): SU/DOS 110
 
 ERROR: UNKNOWN SYSTEM DETECTED!
 
-INITIALIZING IDM CORPORATIONS(TM) BOOT SYSTEM v19.84
-IDM BIOS
-IDM-BIOS-1.10.19.84 52EE5.E7.E8
-COPYRIGHT 1975-1984 IDM CORP.
+INITIALIZING SYSCORP(TM) BOOT SYSTEM v19.84
+SYSCORP BIOS
+SYSCORP-BIOS-1.10.19.84 52EE5.E7.E8
+COPYRIGHT 1975-1984 SYSCORP
 UPPERMEM: 64 KB
 
-IIIIII  DDDDD   MM   MM
-  II    D    D  MMM MMM
-  II    D    D  MM M MM
-  II    D    D  MM   MM
-IIIIII  DDDDD   MM   MM
------------------------
-U/DOS VERSION 1.10
-UNIFIED DISK OPERATING SYSTEM
-(C) 1975 INTERNATIONAL DATA MACHINES
+ ██████  ██    ██  ██████   ██████   ██████   ██████  ██████  
+██       ██    ██ ██       ██       ██    ██ ██    ██ ██   ██ 
+ ██████   ██  ██   ██████  ██       ██    ██ ██████   ██████  
+      ██   ████         ██ ██       ██    ██ ██   ██  ██      
+ ██████     ██     ██████   ██████   ██████  ██    ██ ██
+-------------------------------------------------------------
+SU/DOS VERSION 1.10
+SYSTEM UNIFIED DISK OPERATING SYSTEM
+(C) 1975 SYSTEM CORPORATION (TM)
+-------------------------------------------------------------
 
 SUCCESS: BOOT COMPLETE. BEGIN SECURITY CHECK...

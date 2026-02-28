@@ -86,15 +86,15 @@ function themeConnection() {
     const connectionText = $('#connection').text().toUpperCase();
     
     // Vi tjekker hvilke ord der findes i strengen [@XXXX-NET]
-    if (connectionText.includes('DATA-NET')) {
+    if (connectionText.includes('DATA/NET')) {
         setTheme('IDM');
-    } else if (connectionText.includes('DEFCON-NET')) {
+    } else if (connectionText.includes('DEFCON/NET')) {
         setTheme('DFC');
-    } else if (connectionText.includes('SYNCORP-NET')) {
+    } else if (connectionText.includes('SYNCORP/NET')) {
         setTheme('SYN');
-    } else if (connectionText.includes('GEC-NET')) {
+    } else if (connectionText.includes('GEC/NET')) {
         setTheme('GEC');
-    } else if (connectionText.includes('FALLHACK-NET')) {
+    } else if (connectionText.includes('FALLHACK/NET')) {
         setTheme('FAK');
     } else {
         setTheme('DEFAULT'); // Standard grøn

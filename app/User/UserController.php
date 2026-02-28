@@ -32,7 +32,7 @@ class UserController extends AppController
 
             } else {
                 echo <<< EOT
-                ERROR: WRONG USERNAME OR PASSWORD
+                ERROR: ACCESS DENIED. INVALID CREDENTIALS!
                 EOT;
                 exit;
             }    
@@ -64,7 +64,7 @@ class UserController extends AppController
         }
     }
 
-    public function register() 
+    public function enroll() 
     {
         // Check if the user is already blocked
         Auth::blocked();
@@ -78,7 +78,7 @@ class UserController extends AppController
             $password = $input['password'];
 
             if (User::where('username', '=', $username)->exists()) {
-                echo 'ERROR: USERNAME TAKEN';
+                echo 'ERROR: USERNAME TAKEN!';
                 exit;
              }
 
@@ -98,7 +98,7 @@ class UserController extends AppController
             exit;  
 
         } else {
-            echo 'ERROR: ACCESS DENIED';
+            echo 'ERROR: ACCESS DENIED!';
             exit;
         }   
     }

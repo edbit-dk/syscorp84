@@ -48,11 +48,11 @@ class SystemService
             $remote_ip = remote_ip();
 
             echo <<< EOT
-            UPLINK WITH CENTRAL USOC-NET INITIATED...
+            UPLINK WITH CENTRAL USOC/NET INITIATED...
 
             SUCCESS: SECURITY ACCESS CODE SEQUENCE ACCEPTED.
+            
             WELCOME TO USOC, $remote_ip.
-
             EOT;
             exit;
 
@@ -69,7 +69,7 @@ class SystemService
 
             } else {
                 echo <<< EOT
-                UPLINK WITH CENTRAL USOC-NET INITIATED...
+                UPLINK WITH CENTRAL USOC/NET INITIATED...
 
                 ERROR: ACCESS DENIED
                 EOT;
@@ -90,9 +90,10 @@ class SystemService
         | WELCOME TO THE UNIFIED SYSTEMS OF CORPORATIONS (USOC) |
         =-------------------------------------------------------=
 
-        THIS TERMINAL IS USED TO INPUT COMMAND DATA 
-        FOR AUTHORIZED PERSONNEL OF USOC. THIS TERMINAL ALSO 
-        ALLOWS ACCESS TO USOC-NET.
+        THIS TERMINAL IS USED TO INPUT COMMAND DATA FOR 
+        AUTHORIZED PERSONNEL OF USOC. 
+        
+        THIS TERMINAL ALSO ALLOWS ACCESS TO USOC/NET.
 
         --------------------------------------------------------
         ENTER SECURITY ACCESS CODE SEQUENCE: 
@@ -111,17 +112,17 @@ class SystemService
         $remote_ip = remote_ip();
 
         echo <<< EOT
-        =------------------------------------------=
-        | WELCOME TO IDM CORPORATION (TM) TERMLINK |
-        =------------------------------------------=
+        =---------------------------------------------=
+        | WELCOME TO SYSTEM CORPORATION (TM) TERMLINK |
+        =---------------------------------------------=
         
-        $remote_ip CONNECTED TO CENTRAL USOC-NET 
+        $remote_ip CONNECTED TO CENTRAL USOC/NET 
         ON $date PORT $port.
 
-        SERVING US IS YOUR #1 PRIORITY.
-        ____________________________________________
+        USOC - SERVING US IS YOUR #1 PRIORITY!
+        _______________________________________________
         
-        > REGISTER
+        > ENROLL
         > LOGON
 
         EOT;
@@ -134,13 +135,13 @@ class SystemService
         $server_id = Host::id();
 
         echo <<< EOT
-        =-----------------------------------------------=
-        | IDM CORPORATION UNIFIED DISK OPERATING SYSTEM |
-        |      COPYRIGHT 1975-1977 IDM CORPORATION      |
-        =-----------------------------------------------=
+        =--------------------------------------------------=
+        | SYSTEM CORPORATION UNIFIED DISK OPERATING SYSTEM |
+        |      COPYRIGHT 1975-1977 SYSTEM CORPORATION      |
+        =--------------------------------------------------=
 
         WELCOME, $username ($last_login)
-        _________________________________________________
+        ____________________________________________________
         EOT;
     }
 
@@ -152,7 +153,7 @@ class SystemService
         $last_ip = User::data()->ip;
 
         $host = Hosts::where('id', 1)->first();
-        $id = $host->ip;
+        $ip = $host->ip;
         $os = $host->os;
         $org = $host->org;
         $location = $host->location;
@@ -169,11 +170,11 @@ class SystemService
         $current_date = datetime($host->created_at, config('unix_timestamp'));
 
         echo <<< EOT
-        =-----------------------------------------------=
-        | IDM CORPORATION UNIFIED DISK OPERATING SYSTEM |
-        |      COPYRIGHT 1975-1977 IDM CORPORATION      |
-        =-----------------------------------------------=
-                        -SERVER $id-
+        =--------------------------------------------------=
+        | SYSTEM CORPORATION UNIFIED DISK OPERATING SYSTEM |
+        |      COPYRIGHT 1975-1977 SYSTEM CORPORATION      |
+        =--------------------------------------------------=
+                       -SERVER $ip-
 
         SESSION: {$last_login} FROM $last_ip
         ($os): $current_date
@@ -190,10 +191,10 @@ class SystemService
         $org = $host->org;
         
         echo <<< EOT
-        =-----------------------------------------------=
-        | IDM CORPORATION UNIFIED DISK OPERATING SYSTEM |
-        |      COPYRIGHT 1975-1977 IDM CORPORATION      |
-        =-----------------------------------------------=
+        =--------------------------------------------------=
+        | SYSTEM CORPORATION UNIFIED DISK OPERATING SYSTEM |
+        |      COPYRIGHT 1975-1977 SYSTEM CORPORATION      |
+        =--------------------------------------------------=
         $org 
         $os   
 
@@ -208,7 +209,7 @@ class SystemService
         $host = Host::data();
         $last_ip = User::data()->ip;
         $os = $host->os;
-        $id = $host->ip;
+        $ip = $host->ip;
         $location = $host->location;
         $motd = $host->motd;
         $notes =  $host->notes;
@@ -240,11 +241,11 @@ class SystemService
         Host::root();
 
         echo <<< EOT
-        =-----------------------------------------------=
-        | IDM CORPORATION UNIFIED DISK OPERATING SYSTEM |
-        |      COPYRIGHT 1975-1977 IDM CORPORATION      |
-        =-----------------------------------------------=
-                        -SERVER $id-
+        =--------------------------------------------------=
+        | SYSTEM CORPORATION UNIFIED DISK OPERATING SYSTEM |
+        |      COPYRIGHT 1975-1977 SYSTEM CORPORATION      |
+        =--------------------------------------------------=
+                       -SERVER $ip-
 
         SESSION: {$last_login} FROM $last_ip
         ($os): $current_date

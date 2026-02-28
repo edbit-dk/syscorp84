@@ -79,15 +79,15 @@ function handleUserPrompts(input) {
 
 function handleUsernamePrompt(input) {
     if (input) {
-        if (currentCommand === 'register') {
+        if (currentCommand === 'enroll') {
             usernameForNewUser = input;
-            loadText("ENTER PASSWORD:");
+            loadText("PASSWORD:");
             isUsernamePrompt = false;
             isPasswordPrompt = true;
             $('#command-input').attr('type', 'password');
         } else if (currentCommand === 'login' || currentCommand === 'logon') {
             usernameForLogon = input;
-            loadText("ENTER PASSWORD:");
+            loadText("PASSWORD:");
             isUsernamePrompt = false;
             isPasswordPrompt = true;
             $('#command-input').attr('type', 'password');
@@ -98,12 +98,12 @@ function handleUsernamePrompt(input) {
 }
 
 function handleCommands(command, args) {
-    if (['register', 'logon', 'login'].includes(command) && !sessionStorage.getItem('uplink')) {
+    if (['enroll', 'logon', 'login'].includes(command) && !sessionStorage.getItem('uplink')) {
         loadText("ERROR: UPLINK REQUIRED");
         return;
     }
 
-    if (['logon', 'login', 'register'].includes(command) && sessionStorage.getItem('auth') && !sessionStorage.getItem('host')) {
+    if (['logon', 'login', 'enroll'].includes(command) && sessionStorage.getItem('auth') && !sessionStorage.getItem('host')) {
         loadText("ERROR: LOGOUT REQUIRED");
         return;
     }
@@ -124,7 +124,7 @@ function handleCommands(command, args) {
             sessionStorage.setItem('uplink', true);
             sendCommand(command, args);
             break;
-        case 'register':
+        case 'enroll':
             handleNewUserCommand(args);
             break;
         case 'logon':
@@ -156,7 +156,7 @@ function handleNewUserCommand(args) {
     if (args) {
         handleNewUser(args);
     } else {
-        promptForUsername('register');
+        promptForUsername('enroll');
     }
 }
 
@@ -181,7 +181,7 @@ function handleExitCommands(command, args) {
 }
 
 function promptForUsername(command) {
-    loadText("ENTER USERNAME:");
+    loadText("USERNAME:");
     isUsernamePrompt = true;
     currentCommand = command;
     $('#command-input').attr('type', 'text');
@@ -189,7 +189,7 @@ function promptForUsername(command) {
 
 function promptForPassword(command, username) {
     usernameForLogon = username;
-    loadText("ENTER PASSWORD:");
+    loadText("PASSWORD:");
     isUsernamePrompt = false;
     isPasswordPrompt = true;
     currentCommand = command;
