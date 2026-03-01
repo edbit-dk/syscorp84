@@ -337,7 +337,7 @@ class HostService
 
         if (Session::has(self::$blocked)) {
             echo <<< EOT
-            ERROR: TERMINAL LOCKED. PLEASE CONTACT AN ADMINISTRATOR!
+            ERROR: TERMINAL BLOCKED. PLEASE CONTACT AN ADMINISTRATOR!
             EOT;
             exit;
         }

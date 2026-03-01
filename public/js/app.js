@@ -549,45 +549,42 @@ function handlePasswordPromptResponse(response) {
 }
 // Function to load text into terminal one letter at a time with 80-character line breaks
 function loadText(text) {
-    let delay = 5 + Math.random() * 10;
+    let delay = 15; // En fast hastighed føles mere som en maskine end Math.random()
     let currentIndex = 0;
-    let lineCharCount = 0; // Track character count per line
     const preContainer = $('<pre>');
-
-    $('#terminal').append(preContainer); // Append the container to the terminal
+    $('#terminal').append(preContainer);
 
     let currentWordSpan = null;
 
     function displayNextLetter() {
         if (currentIndex < text.length) {
             const char = text[currentIndex];
-
-            // Tjek om tegnet er et bogstav eller tal (et "ord-tegn")
             const isWordChar = /[a-zA-Z0-9]/.test(char);
 
             if (isWordChar) {
-                // Hvis vi ikke er i gang med et ord, så lav et nyt span
                 if (!currentWordSpan) {
                     currentWordSpan = $('<span class="terminal-word"></span>');
                     preContainer.append(currentWordSpan);
                 }
                 currentWordSpan.append(char);
             } else {
-                // Tegnet er et mellemrum, tegn eller linjeskift - afslut ordet
                 preContainer.append(char);
                 currentWordSpan = null; 
             }
 
-            // --- Din eksisterende line-break logik her ---
-            // (Husk at tjekke lineCharCount her)
-            
+            // OPTIMERING: Scroll kun for hvert 3. tegn for at spare kræfter,
+            // men det ser stadig flydende ud for brugeren.
+            if (currentIndex % 3 === 0) {
+                scrollToBottom();
+            }
+
             currentIndex++;
             setTimeout(displayNextLetter, delay);
         } else {
+            scrollToBottom(); // Sikr at vi lander helt i bunden til sidst
             $('#command-input').focus();
         }
     }
-
     displayNextLetter();
 }
 
@@ -596,11 +593,8 @@ function loadText(text) {
 function scrollToBottom() {
     const wrapper = document.getElementById('terminal-wrapper');
     if (wrapper) {
-        // Vi scroller wrapperen til dens maksimale højde
-        wrapper.scrollTo({
-            top: wrapper.scrollHeight,
-            behavior: 'smooth' // Gør det lækkert og flydende som i spillene
-        });
+        // Direkte og kontant hop til bunden - præcis som hardware fra 1980
+        wrapper.scrollTop = wrapper.scrollHeight;
     }
 }
 

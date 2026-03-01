@@ -100,7 +100,7 @@ class UserService extends User
 
         if (Session::has(self::$blocked)) {
             echo <<< EOT
-            ERROR: TERMINAL BLOCKED. PLEASE CONTACT AN ADMINISTRATOR.
+            ERROR: TERMINAL BLOCKED. PLEASE CONTACT AN ADMINISTRATOR!
             EOT;
             exit;
         }
