@@ -90,9 +90,9 @@ class UserController extends AppController
              User::create([
                 'username' => $username,
                 'email' => "@$username",
-                'fullname' => ucfirst($username),
                 'password' => $password,
-                'code' => $code
+                'code' => $code,
+                'credits' => 5
             ]);
         }
         

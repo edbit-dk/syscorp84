@@ -25,7 +25,6 @@ class UserModel extends AppModel
         'username' => 'username',
         'password' => 'password',
         'code' => 'code',
-        'fullname' => 'fullname',
         'role' => 'role',
         'active' => 'active',
         'level_id' => 'level_id',
