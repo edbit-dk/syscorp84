@@ -234,7 +234,7 @@ class SystemService
         $emails = Mail::unread();
         $mail = $emails;
 
-        $system_info = "Welcome to $org, $location\n";
+        $system_info = "WELCOME TO $org, $location\n";
         $system_info .= isset($motd) ? "\n$motd\n" : null;
         $system_info .= isset($notes) ? "\n$notes\n" : null;
         $system_info .= isset($mail) ? "\n$mail" : null;

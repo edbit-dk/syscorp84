@@ -57,7 +57,7 @@ function scrollToBottom() {
 
 // Scrol ned når input feltet får fokus
 $('#command-input').on('focus', function() {
-    setTimeout(scrollToBottom, 300); // Lille delay så tastaturet kan nå at poppe op
+    setTimeout(scrollToBottom, 100); // Lille delay så tastaturet kan nå at poppe op
 });
 
 // Scrol ned hver gang brugeren skriver noget
